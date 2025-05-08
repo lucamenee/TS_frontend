@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { HttpClient, HttpClientModule, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 import { CommonModule } from '@angular/common';
@@ -10,7 +10,7 @@ import { Flight } from './my_types/Flight';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, CommonModule, HttpClientModule, FormsModule],
+  imports: [RouterOutlet, CommonModule, FormsModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
   standalone: true
