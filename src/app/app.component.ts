@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
+import { catchError } from 'rxjs/operators';
 
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -21,7 +23,15 @@ export class AppComponent {
   
   title = 'frontend';
   airports!: Observable<Airport[]>;
-  flights!: Observable<Flight[]>;
+  flights!: Observable<{
+    directFlights: Flight[]; 
+    connectingFlights: [{
+      firstLeg: Flight;
+      secondLeg: Flight
+    }]
+  }>;
+  // directFlights!: Observable<Flight[]>;
+  // connectingFlights!: Observable<Flight[]>;
   selectedDeparture: string = '';
   selectedDestination: string = '';
 
@@ -34,10 +44,12 @@ export class AppComponent {
   }
 
   getFlights() {
-    // let params = new HttpParams().set('departure', this.selectedDeparture).set('destination', this.selectedDestination);
-    let print = this.ROOT_URL + '/flights?departure=' + this.selectedDeparture + '&destination=' + this.selectedDestination;
-    console.log(print);
-    this.flights = this.http.get<Flight[]>(print);
-  }
+    const url = `${this.ROOT_URL}/flights?departure=${this.selectedDeparture}&destination=${this.selectedDestination}`;
+    console.log('Fetching flights from:', url);
 
+    this.flights = this.http.get<{ directFlights: Flight[]; connectingFlights:[{
+      firstLeg: Flight;
+      secondLeg: Flight
+    }] }>(url);
+  }
 }
