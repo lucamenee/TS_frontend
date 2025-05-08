@@ -1,8 +1,12 @@
+import { Airport } from "./Airport"
+import { Aircraft } from "./Aircraft"
+
 export interface Flight {
-    departure: string,
-    destination: string,
+    _id: string,
+    departure: Airport,
+    destination: Airport,
     departureDate: string,
     destinationDate: string,
-    aircraft: any // make this as an object
+    aircraft: Aircraft
 }
 

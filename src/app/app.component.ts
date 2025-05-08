@@ -18,7 +18,7 @@ import { Flight } from './my_types/Flight';
   standalone: true
 })
 export class AppComponent {
-  
+ 
   readonly ROOT_URL = 'http://localhost:1337';
   
   title = 'frontend';
@@ -34,6 +34,8 @@ export class AppComponent {
   // connectingFlights!: Observable<Flight[]>;
   selectedDeparture: string = '';
   selectedDestination: string = '';
+  showDirectFlights: boolean = true; // Controls visibility of direct flights
+  showConnectedFlights: boolean = true; // Controls visibility of connected flights
 
   constructor(private http: HttpClient) { 
     this.airports = this.http.get<Airport[]>(this.ROOT_URL + '/airports');
@@ -52,4 +54,33 @@ export class AppComponent {
       secondLeg: Flight
     }] }>(url);
   }
+
+  printTimeTranfer(arg0: string, arg1: string): string {
+    const firstDate = new Date(arg0).getTime();
+    const secondDate = new Date(arg1).getTime();
+    const differenceInMilliseconds = Math.abs(secondDate - firstDate);
+
+    const hours = Math.floor(differenceInMilliseconds / (1000 * 60 * 60)); 
+    const minutes = Math.floor((differenceInMilliseconds % (1000 * 60 * 60)) / (1000 * 60)); 
+    
+    return `${hours} h ${minutes} m`; 
+  }
+
+  minPrice(flight: Flight): number {
+    let minPrice: number = Infinity;
+    for (let seat of flight.aircraft.economySeats) {
+      if (seat.seatPrice < minPrice && seat.passenger == null) minPrice = seat.seatPrice;      
+    } 
+
+    for (let seat of flight.aircraft.businessSeats) {
+      if (seat.seatPrice < minPrice && seat.passenger == null) minPrice = seat.seatPrice;      
+    } 
+
+    for (let seat of flight.aircraft.firstClassSeats) {
+      if (seat.seatPrice < minPrice && seat.passenger == null) minPrice = seat.seatPrice;      
+    } 
+
+    return minPrice;
+  }
+
 }

@@ -25,15 +25,81 @@
 <br><br>
 
 <div *ngIf="flights | async as flightData; else loading">
-  <h3>Direct Flights</h3>
-  <div *ngFor="let flight of flightData.directFlights">
-    {{ flight.departureDate | date: 'dd/MM/yyyy HH:mm' }} -> {{ flight.destinationDate | date: 'dd/MM/yyyy HH:mm' }}
+  <h3 (click)="showDirectFlights = !showDirectFlights" style="cursor: pointer;">
+    Voli diretti
+  </h3>
+  <div *ngIf="showDirectFlights">
+    <div *ngFor="let flight of flightData.directFlights" class="flight">
+      <div class="airport">
+        {{ flight.departure.city }} <br>
+        {{ flight.departureDate | date: 'dd/MM/yyyy HH:mm' }}
+      </div>
+      &rArr;
+      <div class="airport">
+        {{ flight.destination.city }} <br>
+        {{ flight.destinationDate | date: 'dd/MM/yyyy HH:mm' }}
+      </div>
+
+      <div class="minPrice">
+        A partire da {{ minPrice(flight) }} € <br>
+        {{ printTimeTranfer(flight.destinationDate, flight.departureDate) }}
+      </div>
+    </div>
   </div>
 
-  <h3>Connected Flights</h3>
-  <div *ngFor="let flight of flightData.connectingFlights">
-    {{ flight.firstLeg.departureDate | date: 'dd/MM/yyyy HH:mm' }} -> {{ flight.secondLeg.destinationDate | date: 'dd/MM/yyyy HH:mm' }}
+
+  <div *ngIf="flightData.connectingFlights.length > 0">
+
+    <h3 (click)="showConnectedFlights = !showConnectedFlights" style="cursor: pointer;">
+      Voli con scalo
+    </h3>
+    <div *ngIf="showConnectedFlights">
+      <div *ngFor="let flight of flightData.connectingFlights" class="connected-flight">
+        <div class="flight">
+          <div class="airport">
+            {{ flight.firstLeg.departure.city }} <br>
+            {{ flight.firstLeg.departureDate | date: 'dd/MM/yyyy HH:mm' }}
+          </div>
+          &rArr;
+          <div class="airport">
+            {{ flight.firstLeg.destination.city }} <br>
+            {{ flight.firstLeg.destinationDate | date: 'dd/MM/yyyy HH:mm' }}
+          </div>
+  
+          <div class="minPrice">
+            A partire da {{ minPrice(flight.firstLeg) }} € <br>
+            {{ printTimeTranfer(flight.firstLeg.destinationDate, flight.firstLeg.departureDate) }}
+          </div>
+        </div>
+  
+        <div class="transfer-time">
+          {{ printTimeTranfer(flight.firstLeg.destinationDate, flight.secondLeg.departureDate) }}
+        </div>
+  
+        <div class="flight">
+          <div class="airport">
+            {{ flight.secondLeg.departure.city }} <br>
+            {{ flight.secondLeg.departureDate | date: 'dd/MM/yyyy HH:mm' }}
+          </div>
+          &rArr;
+          <div class="airport">
+            {{ flight.secondLeg.destination.city }} <br>
+            {{ flight.secondLeg.destinationDate | date: 'dd/MM/yyyy HH:mm' }}
+          </div>
+  
+          <div class="minPrice">
+            A partire da {{ minPrice(flight.secondLeg) }} € <br>
+            {{ printTimeTranfer(flight.secondLeg.destinationDate, flight.secondLeg.departureDate) }}
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
   </div>
+
 </div>
 
 <ng-template #loading>
