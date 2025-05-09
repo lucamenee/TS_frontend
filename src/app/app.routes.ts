@@ -1,6 +1,8 @@
 import { Routes } from '@angular/router';
-import { AppComponent } from './app.component';
+import { FlightSearch } from './flight-search/flight-search.component';
+import { LoginComponent } from './login/login.component';
 
 export const routes: Routes = [
-    { path: '', component: AppComponent},
+    { path: '', component: FlightSearch},
+    { path: 'login', component: LoginComponent},
 ];

@@ -1,0 +1,19 @@
+<div>
+
+    <h1> Login </h1>
+
+    <label for="inputUsername">Username</label>
+    <input type="text" #usernameText id="inputUsername" placeholder="Username" required autofocus>
+
+    <label for="inputPassword">Password</label>
+    <input type="password" #passwordText id="inputPassword" placeholder="Password" required>
+
+    <div *ngIf="errmessage" role="alert">
+        Errore durante il login: {{ errmessage }}
+    </div>
+
+    <button (click)="login(usernameText.value, passwordText.value);"> Login </button>
+    <p><a routerLink="/signup">Sign-up new user</a></p>
+
+
+</div>
