@@ -1,0 +1,53 @@
+/* Banner styling */
+.banner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    background-color: #007bff;
+    color: white;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 0;
+    z-index: 1000;    
+}
+
+/* Center the site name */
+.site-name {
+    font-size: 2.5rem;
+    font-weight: bold;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    font-family: Georgia;
+}
+
+/* Buttons container */
+.banner-buttons {
+    margin-left: auto; /* Push the buttons to the very right */
+    display: flex;
+    gap: 1rem;
+}
+
+/* Button styling */
+.banner-buttons button {
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    font-weight: bold;
+    color: #007bff;
+    background-color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.banner-buttons button:hover {
+    background-color: #0056b3;
+    color: white;
+}
+
+.content-container {
+    padding: 0.5rem 1rem; /* Add space on the left and right */
+}

@@ -1,4 +1,4 @@
-import { afterNextRender, Injectable } from '@angular/core';
+import { afterNextRender, Injectable, NgZone } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams, HttpErrorResponse } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 
@@ -28,7 +28,7 @@ export class UserHttpService {
     public url = 'http://localhost:1337';    
     private token: string = '';
 
-    constructor(private http: HttpClient) {
+    constructor(private http: HttpClient, private ngZone: NgZone) {
         console.log('User service instantiated');
 
         // if (typeof window !== 'undefined' && localStorage) {
@@ -61,7 +61,9 @@ export class UserHttpService {
                 this.token = (data as RecievedToken).token;
                 
                 console.log("Saving token to localstorage");
-                localStorage.setItem('tailwind_token', this.token as string);                
+                this.ngZone.run(() => {
+                    localStorage.setItem('tailwind_token', this.token as string);                
+                });
             })
         )
     }
@@ -70,7 +72,9 @@ export class UserHttpService {
     logout() {
         console.log('Logging out');
         this.token = '';
-        localStorage.setItem('tailwind_token', this.token);
+        this.ngZone.run(() => {
+            localStorage.setItem('tailwind_token', this.token);
+        })
     }
 
 
