@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Router, RouterOutlet } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { from, Observable } from 'rxjs';
 
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -29,14 +29,23 @@ export class FlightSearch {
       secondLeg: Flight
     }]
   }>;
+  // updatedFlight!: {
+  //   directFlights: Flight[]; 
+  //   connectingFlights: [{
+  //     firstLeg: Flight;
+  //     secondLeg: Flight
+  //   }]
+  // };
   // directFlights!: Observable<Flight[]>;
   // connectingFlights!: Observable<Flight[]>;
   selectedDeparture: string = '';
   selectedDestination: string = '';
-  showDirectFlights: boolean = true; // Controls visibility of direct flights
-  showConnectedFlights: boolean = true; // Controls visibility of connected flights
+  showAdvancedSearch: boolean = true;
+  stops: boolean = true;
+  fromDate: Date = new Date();
+  maxPrice: number = 1000;
 
-  constructor(private http: HttpClient) { 
+  constructor(private http: HttpClient, public router: Router) { 
     this.airports = this.http.get<Airport[]>(this.ROOT_URL + '/airports');
   }
 
@@ -45,7 +54,7 @@ export class FlightSearch {
   }
 
   getFlights() {
-    const url = `${this.ROOT_URL}/flights?departure=${this.selectedDeparture}&destination=${this.selectedDestination}`;
+    const url = `${this.ROOT_URL}/flights?departure=${this.selectedDeparture}&destination=${this.selectedDestination}&fromDate=${this.fromDate}`;
     console.log('Fetching flights from:', url);
 
     this.flights = this.http.get<{ directFlights: Flight[]; connectingFlights:[{
@@ -80,6 +89,28 @@ export class FlightSearch {
     } 
 
     return minPrice;
+  }
+
+  filterDirectFlights(flights: Flight[]) {
+    let result: Flight[] = [];
+    
+    for (const flight of flights) {
+      if (this.minPrice(flight) <= this.maxPrice)
+        result.push(flight);
+    }
+
+    return result;
+  }
+
+  filterConnectingFlights(flights: {firstLeg: Flight, secondLeg: Flight}[]) {
+    let result = [];
+
+    for (const flight of flights) {
+      if (this.minPrice(flight.firstLeg) + this.minPrice(flight.secondLeg) < this.maxPrice) 
+        result.push(flight);
+    }
+
+    return result;
   }
 
 }
