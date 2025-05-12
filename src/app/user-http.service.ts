@@ -1,11 +1,13 @@
 import { afterNextRender, Injectable, NgZone } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams, HttpErrorResponse } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 
 import { tap, catchError } from 'rxjs/operators';
 import { Observable, throwError } from 'rxjs';
 import { User } from './my_types/User';
 import { jwtDecode } from "jwt-decode";
+import { Route } from '@angular/router';
 
 
 
@@ -27,8 +29,9 @@ interface RecievedToken {
 export class UserHttpService {
     public url = 'http://localhost:1337';    
     private token: string = '';
+    isLoggedIn = false;
 
-    constructor(private http: HttpClient, private ngZone: NgZone) {
+    constructor(private http: HttpClient, private ngZone: NgZone, public router: Router) {
         console.log('User service instantiated');
 
         // if (typeof window !== 'undefined' && localStorage) {
@@ -41,6 +44,10 @@ export class UserHttpService {
         //         console.log('JWT loaded from local storage');
         //     }
         // }
+
+        afterNextRender(() => {
+            this.isLoggedIn = !!localStorage.getItem('tailwind_token');
+        })
         
     }
 
@@ -59,6 +66,7 @@ export class UserHttpService {
                 console.log("Data received when invoking the /login endpoint:")
                 console.log(JSON.stringify(data));
                 this.token = (data as RecievedToken).token;
+                this.isLoggedIn = true;
                 
                 console.log("Saving token to localstorage");
                 this.ngZone.run(() => {
@@ -69,12 +77,21 @@ export class UserHttpService {
     }
 
 
+    // logout() {
+    //     console.log('Logging out');
+    //     this.token = '';
+    //     this.ngZone.run(() => {
+    //         localStorage.setItem('tailwind_token', this.token);
+    //     })
+    // }
+
     logout() {
-        console.log('Logging out');
-        this.token = '';
+        // Clear the token and update login state
         this.ngZone.run(() => {
-            localStorage.setItem('tailwind_token', this.token);
+            localStorage.removeItem('tailwind_token');
         })
+        this.isLoggedIn = false;
+        this.router.navigate(['/login']);
     }
 
 

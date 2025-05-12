@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { afterNextRender, Component } from '@angular/core';
 import { UserHttpService } from '../user-http.service';
 import { CommonModule } from '@angular/common';
 import { Router, RouterOutlet } from '@angular/router';

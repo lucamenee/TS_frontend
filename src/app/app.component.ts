@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { afterNextRender, Component, NgZone } from '@angular/core';
 import { RouterOutlet, Router, RouterModule } from '@angular/router';
 import { routes } from './app.routes';
+import { UserHttpService } from './user-http.service';
 
 @Component({
   selector: 'app-root',
@@ -11,21 +12,11 @@ import { routes } from './app.routes';
   imports: [RouterOutlet, CommonModule, RouterModule],
 })
 export class AppComponent {
-  isLoggedIn = false; // Replace with actual login state logic
 
-  constructor(private ngZone: NgZone,private router: Router) {
+  constructor(private ngZone: NgZone, public router: Router, public us: UserHttpService) {
     // Check if the user is logged in (e.g., check token in localStorage)
-    afterNextRender(() => {
-      this.isLoggedIn = !!localStorage.getItem('tailwind_token');
-    })
+    
   }
 
-  logout() {
-    // Clear the token and update login state
-    this.ngZone.run(() => {
-      localStorage.removeItem('tailwind_token');
-    })
-    this.isLoggedIn = false;
-    this.router.navigate(['/login']);
-  }
+  
 }

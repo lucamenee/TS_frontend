@@ -1,4 +1,4 @@
-<form>
+<div>
 
     <h1> Login </h1>
 
@@ -7,7 +7,7 @@
     <br>
 
     <label for="inputPassword">Password</label>
-    <input type="password" #passwordText id="inputPassword" placeholder="Password" required>
+    <input type="password" #passwordText id="inputPassword" placeholder="Password" required (keyup.enter)="login(usernameText.value, passwordText.value)">
 
     <div *ngIf="errmessage" role="alert">
         Errore durante il login: {{ errmessage }}
@@ -17,4 +17,4 @@
     <p><a routerLink="/signup">Sign-up new user</a></p>
 
 
-</form>
+</div>
