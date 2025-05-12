@@ -1,0 +1,76 @@
+.flight-head {
+    display: flex;
+    flex-direction: row;
+    gap: 2rem;
+}
+
+.flight-head-element {
+
+}
+
+/* Style for the seats-section container */
+.seats-section {
+    margin-top: 2rem;
+    padding: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    display: flex;
+}
+
+/* Style for seat category headers (e.g., Economy, Business, First Class) */
+.seats-section h5 {
+    margin-top: 1rem;
+    font-size: 1.2rem;
+    color: #007bff;
+    text-transform: uppercase;
+    border-bottom: 2px solid #007bff;
+    display: inline-block;
+    padding-bottom: 0.2rem;
+}
+
+/* Style for seat containers */
+.seats-section div {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+/* Style for individual seats */
+.seats-section div div {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 0.5rem;
+    background-color: #ffffff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    font-size: 0.9rem;
+    color: #333;
+    cursor: pointer;
+    transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+/* Hover effect for seats */
+.seats-section div div:hover {
+    background-color: #007bff;
+    color: white;
+    transform: scale(1.05);
+}
+
+/* Style for unavailable seats */
+.seats-section div div[ng-reflect-ng-if="false"] {
+    background-color: #e0e0e0;
+    color: #999;
+    cursor: not-allowed;
+    text-decoration: line-through;
+}
+
+/* Responsive design for seats */
+@media (max-width: 600px) {
+    .seats-section div div {
+        flex: 1 1 calc(50% - 1rem); /* Adjust seat size for smaller screens */
+    }
+}

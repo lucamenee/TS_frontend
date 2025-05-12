@@ -69,7 +69,8 @@
 <div *ngIf="flights | async as flightData;">
   
   <div>
-    <div *ngFor="let flight of filterDirectFlights(flightData.directFlights)" class="flight" (click)="this.router.navigate(['/flight'])">
+    <div *ngFor="let flight of filterDirectFlights(flightData.directFlights)" class="flight" 
+    (click)="this.router.navigate(['/flight/' + flight._id])">
       <div class="airport">
         {{ flight.departure.city }} <br>
         {{ flight.departureDate | date: 'dd/MM/yyyy HH:mm' }}

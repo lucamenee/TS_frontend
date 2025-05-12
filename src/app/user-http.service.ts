@@ -142,6 +142,10 @@ export class UserHttpService {
         return (jwtDecode(this.token) as TokenData).role == 'ADMIN';
     }
 
+    is_logged(): boolean {
+        return !!localStorage.getItem('tailwind_token');
+    }
+
 
 
 

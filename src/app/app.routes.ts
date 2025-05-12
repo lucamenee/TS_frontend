@@ -6,5 +6,6 @@ import { FlightDetail } from './flight-detail/flight-detail.component';
 export const routes: Routes = [
     { path: '', component: FlightSearch },
     { path: 'login', component: LoginComponent },
-    { path: 'flight', component: FlightDetail }
+    { path: 'flight/:id', component: FlightDetail },
+    { path: '**', redirectTo: '', pathMatch: 'full' }
 ];

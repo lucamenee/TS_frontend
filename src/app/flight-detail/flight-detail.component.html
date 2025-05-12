@@ -1,0 +1,53 @@
+<br>
+
+<div *ngIf="flight">
+    <div class="flight-head">
+        <div class="flight-head-element">
+            <h3>{{ flight.departure.airportName }}</h3>
+            <i>{{ flight.departureDate | date: 'full' }}</i>
+        </div>
+        <div class="flight-head-element">
+            <h3>&rarr;</h3>
+        </div>
+        <div class="flight-head-element">
+            <h3>{{ flight.destination.airportName }}</h3>
+            <i>{{ flight.destinationDate | date: 'full' }}</i>
+        </div>
+    </div>
+    
+    <!-- use css to adjust margin and spaces -->
+    <br><br> 
+    
+    {{flight.aircraft.producer}} {{ flight.aircraft.modelName }} <br>
+    <i><h3>{{ flight.aircraft.airline.name }}</h3></i> <br>
+
+    <div class="seats-section">
+        <div>
+            <h5>Economy</h5>
+            <div *ngFor="let seat of flight.aircraft.economySeats" class="">
+                <div *ngIf="seat.passenger == null">
+                    {{seat.seatNumber}}, {{seat.seatPrice}} €
+                </div>
+            </div>
+        
+
+        </div>
+        <h5>business</h5>
+        <div *ngFor="let seat of flight.aircraft.businessSeats">
+            <div *ngIf="seat.passenger == null">
+                {{seat.seatNumber}}, {{seat.seatPrice}} €
+            </div>
+        </div>
+    
+    
+        <h5>firstClass</h5>
+        <div *ngFor="let seat of flight.aircraft.firstClassSeats">
+            <div *ngIf="seat.passenger == null">
+                {{seat.seatNumber}}, {{seat.seatPrice}} €
+            </div>
+        </div>    
+    
+    
+    
+    </div>
+</div>

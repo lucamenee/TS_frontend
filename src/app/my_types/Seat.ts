@@ -1,5 +1,5 @@
 export interface Seat {
-    setNumber: string,
+    seatNumber: string,
     passenger: string,
     seatPrice: number,
     extras: any[],
