@@ -12,36 +12,42 @@
 .seats-section {
     margin-top: 2rem;
     padding: 1rem;
-    border: 1px solid #ccc;
+    /* border: 1px solid #ccc; */
     border-radius: 8px;
     background-color: #f9f9f9;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    /* box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); */
     display: flex;
+    gap: 3rem;
+    align-items: center;
+    justify-content: center;
 }
 
 /* Style for seat category headers (e.g., Economy, Business, First Class) */
-.seats-section h5 {
+.seats-column-title {
     margin-top: 1rem;
     font-size: 1.2rem;
     color: #007bff;
     text-transform: uppercase;
-    border-bottom: 2px solid #007bff;
+    /* border-bottom: 2px solid #007bff; */
     display: inline-block;
     padding-bottom: 0.2rem;
+    width: 100%;
+    text-align: center;
 }
 
 /* Style for seat containers */
-.seats-section div {
+.seats-column {
     display: flex;
     flex-wrap: wrap;
-    flex-direction: column;
+    flex-direction:initial;
     gap: 1rem;
     margin-top: 1rem;
+    width: 25%
 }
-
 /* Style for individual seats */
-.seats-section div div {
-    border: 1px solid #ccc;
+.free-seat, .occupy-seat {
+    border: 1px solid black;
+    width: 25;
     border-radius: 4px;
     padding: 0.5rem;
     background-color: #ffffff;
@@ -51,21 +57,25 @@
     color: #333;
     cursor: pointer;
     transition: transform 0.2s ease, background-color 0.2s ease;
+    -webkit-user-select: none; /* Safari */
+    -ms-user-select: none; /* IE 10 and IE 11 */
+    user-select: none; /* Standard syntax */
 }
 
 /* Hover effect for seats */
-.seats-section div div:hover {
+.free-seat:hover {
     background-color: #007bff;
     color: white;
     transform: scale(1.05);
 }
 
 /* Style for unavailable seats */
-.seats-section div div[ng-reflect-ng-if="false"] {
+.occupy-seat {
     background-color: #e0e0e0;
     color: #999;
-    cursor: not-allowed;
+    /* cursor: not-allowed; */
     text-decoration: line-through;
+    pointer-events: none;
 }
 
 /* Responsive design for seats */

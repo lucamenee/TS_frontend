@@ -97,7 +97,7 @@
   
     <div *ngIf="stops">
       <div *ngFor="let flight of filterConnectingFlights(flightData.connectingFlights)" class="connected-flight">
-        <div class="flight">
+        <div class="flight" (click)="this.router.navigate(['/flight/' + flight.firstLeg._id])">
           <div class="airport">
             {{ flight.firstLeg.departure.city }} <br>
             {{ flight.firstLeg.departureDate | date: 'dd/MM/yyyy HH:mm' }}
@@ -123,7 +123,7 @@
           {{ printTimeTranfer(flight.firstLeg.destinationDate, flight.secondLeg.departureDate) }}
         </div>
   
-        <div class="flight">
+        <div class="flight" (click)="this.router.navigate(['/flight/' + flight.secondLeg._id])">
           <div class="airport">
             {{ flight.secondLeg.departure.city }} <br>
             {{ flight.secondLeg.departureDate | date: 'dd/MM/yyyy HH:mm' }}

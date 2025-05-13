@@ -1,11 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { afterNextRender, Component, OnInit, TemplateRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { CommonModule } from '@angular/common';
-import { HttpClient } from '@angular/common/http';
+import { CommonModule, registerLocaleData } from '@angular/common';
+import { HttpClient, HttpHandler, HttpHeaders, HttpParams } from '@angular/common/http';
+import localeIt from '@angular/common/locales/it';
+
 
 import { UserHttpService } from '../user-http.service';
 
 import { Flight } from '../my_types/Flight'
+import { User } from '../my_types/User';
+import { error } from 'console';
 
 @Component({
   selector: 'app-flight-detail',
@@ -18,7 +22,10 @@ export class FlightDetail implements OnInit {
   flightId: string = '';
   flight!: Flight;
 
-  constructor(private route: ActivatedRoute, private us: UserHttpService, private http: HttpClient, private router: Router) {}
+  constructor(private route: ActivatedRoute, private us: UserHttpService, private http: HttpClient, 
+    public router: Router) {
+    registerLocaleData(localeIt, 'it-It');
+  }
 
   ngOnInit(): void {
     this.route.params.subscribe((params: any) => {
@@ -36,4 +43,41 @@ export class FlightDetail implements OnInit {
       
     });
   }
+
+  bookSeat(id: string, number: string, price: number) {
+
+    // controllo che utente sia registrato (se no alert)
+    if (!this.us.isLoggedIn) {
+      alert('Non sei loggato')
+      return;
+    }
+
+    // manda alert per conferma con dati riepologativi
+    if (confirm('Riepilogo: posto: ' + number + ', ' + price + ' € \n Conferma prenotazione')) {
+      this.http.post(this.us.url + '/bookFlight', {
+        flightId: this.flightId,
+        seats: [id]
+      }, {
+        headers: new HttpHeaders({
+          Authorization: 'Bearer ' + this.us.get_token(),
+          'cache-control': 'no-cache',
+          'Content-Type':  'application/json',
+        })
+      }).subscribe({
+        next: () => {
+          alert('Prenotazione effettuata con successo');
+          window.location.reload();
+        }, 
+        error: (error) => {
+          console.log(error)
+        }
+      })
+    }
+
+    
+    
+  }
+  
+  
+
 }

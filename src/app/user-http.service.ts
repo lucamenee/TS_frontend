@@ -47,6 +47,8 @@ export class UserHttpService {
 
         afterNextRender(() => {
             this.isLoggedIn = !!localStorage.getItem('tailwind_token');
+            if (this.isLoggedIn)
+                this.token = localStorage.getItem('tailwind_token') || '';
         })
         
     }
@@ -91,6 +93,7 @@ export class UserHttpService {
             localStorage.removeItem('tailwind_token');
         })
         this.isLoggedIn = false;
+        this.token = '';
         this.router.navigate(['/login']);
     }
 
