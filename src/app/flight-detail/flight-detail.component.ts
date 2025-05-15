@@ -47,7 +47,7 @@ export class FlightDetail implements OnInit {
   bookSeat(id: string, number: string, price: number) {
 
     // controllo che utente sia registrato (se no alert)
-    if (!this.us.isLoggedIn) {
+    if (!this.us.is_logged()) {
       alert('Non sei loggato')
       return;
     }

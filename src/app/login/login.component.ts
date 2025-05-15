@@ -28,11 +28,17 @@ export class LoginComponent {
       next: (d) => {
         console.log('Login granted, calling router.navigate(/)');
         this.errmessage = undefined;
-        this.router.navigate(['/']);
+        if (this.us.is_passenger())
+          this.router.navigate(['/']);
+        if (this.us.is_airline())
+          this.router.navigate(['/airline']);
+        if (this.us.is_admin())
+          this.router.navigate(['/admin']);
+
       },
       error: (err) => {
         console.log('Login error: ' + JSON.stringify(err));
-        this.errmessage = err.message;
+        this.errmessage = err.error.message;
       }
     });
 

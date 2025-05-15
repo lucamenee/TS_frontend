@@ -29,7 +29,7 @@ interface RecievedToken {
 export class UserHttpService {
     public url = 'http://localhost:1337';    
     private token: string = '';
-    isLoggedIn = false;
+    private isLoggedIn = false;
 
     constructor(private http: HttpClient, private ngZone: NgZone, public router: Router) {
         console.log('User service instantiated');
@@ -112,15 +112,25 @@ export class UserHttpService {
     }
 
 
-    register(user: User): Observable<any> {
+    register(username: string, name: string, password: string, email: string, role: string, surname: string): Observable<any> {
         const options = {
             headers: new HttpHeaders({
                 'cache-control': 'no-cache',
                 'Content-Type':  'application/json',
+                Authorization: 'Bearer ' + this.get_token()
             })
         };
 
-        return this.http.post(this.url + '/register', user, options);
+        console.log(role)
+
+        return this.http.post(this.url + '/register', {
+            'name': name,
+            'username': username,
+            'surname': surname,
+            'password': password,
+            'email': email,
+            'role': role,
+        }, options);
     }
 
     get_token(): string {
@@ -164,7 +174,7 @@ export class UserHttpService {
     }
 
     is_logged(): boolean {
-        return !!localStorage.getItem('tailwind_token');
+       return this.isLoggedIn;
     }
 
 

@@ -31,7 +31,7 @@ export class ProfileComponent implements OnInit {
 
   constructor(public us: UserHttpService, private router: Router, private http: HttpClient) {
 
-    if (!this.us.isLoggedIn || !this.us.get_token())
+    if (!this.us.is_logged() || !this.us.get_token())
       this.router.navigate(['/login']);
 
     registerLocaleData(localeIt, 'it-It');
