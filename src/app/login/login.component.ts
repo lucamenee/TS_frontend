@@ -14,7 +14,7 @@ import { JsonPipe } from '@angular/common';
 })
 export class LoginComponent {
 
-  public errmessage = undefined;
+  public errmessage!: string;
 
   constructor(private us: UserHttpService, private router: Router) { }
 
@@ -27,7 +27,7 @@ export class LoginComponent {
     this.us.login(username, password).subscribe({
       next: (d) => {
         console.log('Login granted, calling router.navigate(/)');
-        this.errmessage = undefined;
+        this.errmessage = '';
         if (this.us.is_passenger())
           this.router.navigate(['/']);
         if (this.us.is_airline())
@@ -38,7 +38,7 @@ export class LoginComponent {
       },
       error: (err) => {
         console.log('Login error: ' + JSON.stringify(err));
-        this.errmessage = err.error.message;
+        this.errmessage = 'username o password errati';
       }
     });
 
