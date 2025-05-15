@@ -25,7 +25,7 @@
 
   <div>
     <label for="fromDate">A partire dal:</label>
-    <input type="date" name="fromDate" [ngModel]="this.fromDate | date:'yyyy-MM-dd'" (ngModelChange)="this.fromDate = $event"> 
+    <input type="date" name="fromDate" id="fromDate" [ngModel]="this.fromDate | date:'yyyy-MM-dd'" (ngModelChange)="this.fromDate = $event"> 
   </div>
 
 
@@ -41,8 +41,8 @@
   <div class="advanced-search">
 
     <div class="criteria-box">
-      <label class="switch">
-        <input type="checkbox" checked [(ngModel)]="this.stops" name="stops">
+      <label for="stops" class="switch">
+        <input id="stops" type="checkbox" checked [(ngModel)]="this.stops" name="stops" placeholder="s">
         <span class="slider round"></span>
       </label>
       
@@ -52,8 +52,8 @@
     
 
     <div class="criteria-box">
-      <input type="number" name="maxPrice" [(ngModel)]="this.maxPrice" min="0" >
-      <p>Prezzo massimo</p>
+      <label for="maxPrice">Prezzo massimo</label>
+      <input type="number" name="maxPrice" id="maxPrice" [(ngModel)]="this.maxPrice" min="0">
     </div>
     
 

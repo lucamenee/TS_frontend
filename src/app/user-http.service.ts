@@ -12,10 +12,10 @@ import { Route } from '@angular/router';
 
 
 interface TokenData {
+    email: string,
     name: string,
     surname: string,
     username: string,
-    mail: string,
     role: string,
     _id: string,
 }
@@ -47,9 +47,23 @@ export class UserHttpService {
 
         afterNextRender(() => {
             this.isLoggedIn = !!localStorage.getItem('tailwind_token');
-            if (this.isLoggedIn)
-                this.token = localStorage.getItem('tailwind_token') || '';
+            if (this.isLoggedIn){
+                this.token = localStorage.getItem('tailwind_token') as string;
+            }
         })
+
+        // // Load the token from local storage when the service is initialized
+        // afterNextRender(() => {
+        //     const loadedToken = localStorage.getItem('tailwind_token');
+        //     if (loadedToken) {
+        //         this.token = loadedToken;
+        //         this.isLoggedIn = true;
+        //         console.log('JWT loaded from local storage:', this.token);
+        //     } else {
+        //         console.log('No token found in local storage');
+        //     }
+        
+        // })
         
     }
 
@@ -118,7 +132,7 @@ export class UserHttpService {
     }
 
     get_mail(): string {
-        return (jwtDecode(this.token) as TokenData).mail;
+        return (jwtDecode(this.token) as TokenData).email;
     }
 
     get_id(): string {
@@ -131,6 +145,10 @@ export class UserHttpService {
 
     get_surname(): string {
         return (jwtDecode(this.token) as TokenData).surname;
+    }
+
+    get_role(): string {
+        return (jwtDecode(this.token) as TokenData).role;
     }
 
     is_airline(): boolean {

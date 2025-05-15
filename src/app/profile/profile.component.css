@@ -1,0 +1,75 @@
+/* General styling for the profile container */
+div {
+    padding: 1rem;
+    font-family: Arial, sans-serif;
+    color: #333;
+}
+
+/* Styling for user information */
+div p, div h4 {
+    margin: 0.5rem 0;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #007bff;
+}
+
+/* Styling for the "I miei biglietti" section */
+.my-flights {
+    margin-top: 1rem;
+    padding: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Styling for each flight */
+.flight-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    border-bottom: 1px solid #ccc;
+    background-color: #e9ecef;
+    border-radius: 4px;
+    margin-bottom: 1rem;
+}
+
+.flight-head-element {
+    text-align: center;
+    flex: 1;
+}
+
+.flight-head-element h3 {
+    margin: 0;
+    font-size: 1.2rem;
+    color: #333;
+}
+
+.flight-head-element i {
+    font-size: 0.9rem;
+    color: #666;
+}
+
+/* Styling for the seats section */
+.seats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    padding: 1rem;
+    background-color: #ffffff;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+}
+
+.seat {
+    padding: 0.5rem 1rem;
+    border: 1px solid #007bff;
+    border-radius: 4px;
+    background-color: #f0f8ff;
+    color: #007bff;
+    font-size: 0.9rem;
+    text-align: center;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color;
+}

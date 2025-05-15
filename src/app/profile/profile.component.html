@@ -1,0 +1,42 @@
+<div>
+
+    {{ us.get_name() }} <br>
+    <p *ngIf="us.is_passenger()">{{ us.get_surname() }}</p>
+    {{ us.get_mail() }} <br>
+    {{ us.get_role() }} <br><br>
+
+    <div *ngIf="us.is_passenger()">
+        
+        <h4>I miei biglietti</h4>
+        <div class="my-flights">
+            <div *ngFor="let flight of mySeats" >
+                <div class="flight-head">
+                    <div class="flight-head-element">
+                        <h3>{{ flight.departure.airportName }}</h3>
+                        <i>{{ flight.departureDate | date: 'full':'+0100':'it-IT' }}</i>
+                    </div>
+                    <div class="flight-head-element">
+                        <h3>&rarr;</h3>
+                    </div>
+                    <div class="flight-head-element">
+                        <h3>{{ flight.destination.airportName }}</h3>
+                        <i>{{ flight.destinationDate | date: 'full':'+0100':'it-IT' }}</i>
+                    </div>
+
+                </div>
+
+                <div class="seats">
+                    <div *ngFor="let seat of flight.seats" class="seat">
+                        {{ seat.seatNumber }}, {{ seat.seatPrice }} €
+                    </div>
+                </div>
+                <br>
+            </div>
+    
+    
+        </div>
+
+    </div>
+
+
+</div>
