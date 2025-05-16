@@ -2,7 +2,7 @@
 .banner {
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items:center;
     padding: 1rem 2rem;
     background-color: #007bff;
     color: white;
@@ -17,8 +17,8 @@
     font-size: 2.5rem;
     font-weight: bold;
     position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
+    left: 3.5%;
+    /* transform: translateX(-50%); */
     text-align: center;
     font-family: Georgia;
     cursor: pointer;

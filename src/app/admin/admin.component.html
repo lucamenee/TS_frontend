@@ -7,21 +7,20 @@
             <h4>Crea nuova linea aerea</h4>
             <label for="name">Nome </label>
             <input type="text" id="name" required [(ngModel)]=nameText>
-            <br>
+            
             <label for="username">Username </label>
             <input type="text" id="username" required [(ngModel)]=usernameText>
-            <br>
+            
             <label for="email">Email </label>
             <input type="text" id="email" required [(ngModel)]=emailText>
-            <br>
+            
             <label for="password">Password </label>
             <input type="password" id="password" required [(ngModel)]="passwordText" (keyup.enter)="createAirline(usernameText, nameText, passwordText, emailText)">
-            <br>
+            
             
             <input type="submit" value="Crea utente" (click)="createAirline(usernameText, nameText, passwordText, emailText)">
             <div role="alert">
-                {{airlineerrmessage}}
-                
+                {{airlineerrmessage}}                
             </div>
         </div>
 
@@ -41,7 +40,52 @@
             </div>
 
         </div>
+        
+
+        
+        <div class="admin-dashboard-element">
+            <h4>Crea nuovo aereoporto</h4>
+            <label for="IATA">IATA</label>
+            <input type="text" id="IATA" required [(ngModel)]=IATAText>
+            
+            <label for="city">Città</label>
+            <input type="text" id="city" required [(ngModel)]=cityText>
+            
+            <label for="airportName">Nome aereoporto</label>
+            <input type="text" id="airportName" required [(ngModel)]=airportNameText>
+
+            <!-- select for nation -->
+            <label for="nations">Nazione</label>
+            <select title="nations" [(ngModel)]=selectedNation>
+                <option *ngFor="let nation of nations | async" [value]="nation._id">
+                    {{nation.nationName}}
+                </option>
+            </select>
+
+            <input type="submit" value="Crea aereoporto" (click)="createAirport(IATAText, cityText, airportNameText, selectedNation)">
+            <div role="alert">
+                {{airporterrmessage}}                
+            </div>
+        </div>
+
+
+        <div class="admin-dashboard-element">
+            <h4>Inserisci nuova nazione</h4>
+            <label for="nationName">Nome</label>
+            <input type="text" id="nationName" required [(ngModel)]=nationNameText (keyuo.enter)="createNation(nationNameText)">
+
+            <input type="submit" value="Crea nazione" (click)="createNation(nationNameText)">
+            <div role="alert">
+                {{nationerrmessage}}                
+            </div>
+        </div>
     
 
     </div>
+
+    
+</div>
+
+<div *ngIf="toastMessage" class="toast">
+  {{ toastMessage }}
 </div>

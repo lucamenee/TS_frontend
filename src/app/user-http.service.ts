@@ -162,7 +162,11 @@ export class UserHttpService {
     }
 
     is_airline(): boolean {
-        return (jwtDecode(this.token) as TokenData).role == 'AIRLINE';
+        try {
+            return (jwtDecode(this.token) as TokenData).role == 'AIRLINE';
+        } catch (erroor) {
+            return false;
+        }
     }
     
     is_passenger(): boolean {
@@ -170,7 +174,11 @@ export class UserHttpService {
     }
     
     is_admin(): boolean {
-        return (jwtDecode(this.token) as TokenData).role == 'ADMIN';
+        try {
+            return (jwtDecode(this.token) as TokenData).role == 'ADMIN';
+        } catch (erroor) {
+            return false;
+        }
     }
 
     is_logged(): boolean {

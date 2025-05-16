@@ -5,6 +5,8 @@ import { User } from '../my_types/User';
 import { Observable } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { Nation } from '../my_types/Nation';
+import { ChangeDetectorRef } from '@angular/core';
 
 @Component({
   selector: 'app-admin',
@@ -16,7 +18,12 @@ export class AdminComponent {
 
   public airlineerrmessage = undefined;
   public deleteusererrmessage = undefined;
+  public airporterrmessage = undefined;
+  public nationerrmessage = undefined;
+
   public users!: Observable<User[]>;
+  public nations!: Observable<Nation[]>;
+
   selectedUser: string = '';
 
   passwordText: string = '';  
@@ -24,8 +31,18 @@ export class AdminComponent {
   usernameText: string = '';
   nameText: string = '';
 
-  constructor(private http: HttpClient, private us: UserHttpService) {
+  IATAText: string = '';
+  cityText: string = '';
+  airportNameText: string = '';
+  selectedNation: string = '';
+  
+  nationNameText: string = '';
+
+  public toastMessage: string | undefined;
+
+  constructor(private http: HttpClient, private us: UserHttpService, private cdRef: ChangeDetectorRef) {
     this.getUsers();
+    this.getNations();
   }
 
   getUsers() {
@@ -38,12 +55,15 @@ export class AdminComponent {
     })
   }
 
+  getNations() {
+    this.nations = this.http.get<Nation[]>(this.us.url + '/nations');
+  }
+
   public createAirline(username: string, name: string, password: string, email: string) {
-    
     this.us.register(username, name, password, email, 'AIRLINE', '').subscribe({
       next: (d) => {
         this.airlineerrmessage = undefined;
-        alert('Utente creato con successo');
+        this.showToast('Utente creato con successo'); // <-- Use toast
         this.getUsers();
         this.passwordText = '';
         this.emailText = '';
@@ -54,8 +74,7 @@ export class AdminComponent {
         console.log(error);
         this.airlineerrmessage = error.error.errormessage;
       }
-    })
-
+    });
   }
 
   public deleteUser() {
@@ -73,7 +92,7 @@ export class AdminComponent {
         console.log(d);
         this.deleteusererrmessage = undefined;
         this.getUsers();
-        alert('Utente eliminato con successo');
+        this.showToast('Utente eliminato con successo');      
       },
       error: (error) => {
         console.log(error);
@@ -81,5 +100,68 @@ export class AdminComponent {
       }
     })
   }
+
+  showToast(message: string, duration: number = 2000) {
+    this.toastMessage = message;
+    this.cdRef.detectChanges();
+    setTimeout(() => {
+      this.toastMessage = undefined;
+      this.cdRef.detectChanges();
+    }, duration);
+  }
+
+  createAirport(IATA: string, city: string, airportName: string, nation: string) {
+    this.http.post(this.us.url + '/airport', {
+      IATA: IATA,
+      city: city,
+      airportName: airportName,
+      nation: nation,
+    }, {
+      headers: new HttpHeaders({
+        Authorization: 'Bearer ' + this.us.get_token(),
+        'cache-control': 'no-cache',
+        'Content-Type':  'application/json',
+      })
+    }).subscribe({
+      next: (d) => {
+        console.log('Airport inserted!');
+        this.IATAText = '';
+        this.cityText = '';
+        this.airportNameText = '';
+        this.selectedNation = '';
+        this.airporterrmessage = undefined;
+        this.showToast('Aereoporto inserito'); 
+      },
+      error: (err) => {
+        console.log(err);
+        this.airporterrmessage = err.error.errormessage;
+      }
+    });
+  }
+
+  createNation(nationName: string) {
+    this.http.post(this.us.url + '/nation', {
+      nationName: nationName,
+    }, {
+      headers: new HttpHeaders({
+        Authorization: 'Bearer ' + this.us.get_token(),
+        'cache-control': 'no-cache',
+        'Content-Type':  'application/json',
+      })
+    }).subscribe({
+      next: (d) => {
+        console.log('Nation inserted!');
+        this.nationNameText = '';
+        this.nationerrmessage = undefined;
+        this.getNations();
+        this.showToast('Nazione inserita'); 
+      },
+      error: (err) => {
+        console.log(err);
+        this.nationerrmessage = err.error.errormessage;
+      }
+    });
+  }
+
 
 }
