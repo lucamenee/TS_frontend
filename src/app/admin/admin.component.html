@@ -1,25 +1,47 @@
 <div>
-    <h3> Admin dashboard </h3>
-    <br>
+    <h2> Admin dashboard </h2>
 
-    <div class="airline-registration">
-        <label for="name">Nome </label>
-        <input type="text" id="name" required #nameText>
-        <br>
-        <label for="username">Username </label>
-        <input type="text" id="username" required #usernameText>
-        <br>
-        <label for="email">Email </label>
-        <input type="text" id="email" required #emailText>
-        <br>
-        <label for="password">Password </label>
-        <input type="password" id="password" required #passwordText>
-        <br>
+    <div class="dashboard">
         
-        <input type="submit" value="Crea utente" (click)="createAirline(usernameText.value, nameText.value, passwordText.value, emailText.value)">
-    </div>
+        <div class="admin-dashboard-element">
+            <h4>Crea nuova linea aerea</h4>
+            <label for="name">Nome </label>
+            <input type="text" id="name" required [(ngModel)]=nameText>
+            <br>
+            <label for="username">Username </label>
+            <input type="text" id="username" required [(ngModel)]=usernameText>
+            <br>
+            <label for="email">Email </label>
+            <input type="text" id="email" required [(ngModel)]=emailText>
+            <br>
+            <label for="password">Password </label>
+            <input type="password" id="password" required [(ngModel)]="passwordText" (keyup.enter)="createAirline(usernameText, nameText, passwordText, emailText)">
+            <br>
+            
+            <input type="submit" value="Crea utente" (click)="createAirline(usernameText, nameText, passwordText, emailText)">
+            <div role="alert">
+                {{airlineerrmessage}}
+                
+            </div>
+        </div>
 
-    <div>
-        {{errmessage}}
+
+        <div class="admin-dashboard-element">
+            <h4>Elimina utenti</h4>
+            <label for="Utenti">Utente</label>
+            <select title="utenti" [(ngModel)]="this.selectedUser">
+                <option *ngFor="let user of users | async" [value]="user._id">
+                    {{user.username}}, {{user.role}}
+                </option>
+            </select>
+
+            <input type="submit" (click)="deleteUser()"value="Elimina utente">
+            <div role="alert">
+                {{deleteusererrmessage}}                
+            </div>
+
+        </div>
+    
+
     </div>
 </div>
