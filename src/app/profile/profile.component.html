@@ -1,9 +1,31 @@
 <div>
 
-    {{ us.get_name() }} <br>
-    <p *ngIf="us.is_passenger()">{{ us.get_surname() }}</p>
-    {{ us.get_mail() }} <br>
-    {{ us.get_role() }} <br><br>
+    <div class="profile-header">
+        <div class="user-info">
+            {{ us.get_name() }} <br>
+            <p *ngIf="us.is_passenger()">{{ us.get_surname() }}</p>
+            {{ us.get_mail() }} <br>
+            {{ us.get_role() }} <br><br>
+        </div>
+    
+        <div [ngClass]="showPasswordUpdater ? 'change-password-outer' : ''">
+            <button (click)="togglePasswordChanger()" class="change-password-toggle">
+                {{ showPasswordUpdater ? 'Chiudi' : 'Cambia password' }}
+            </button>
+            <div *ngIf="showPasswordUpdater" class="change-password-inner">
+                
+                <label for="oldPsw">Password attuale</label>
+                <input type="password" id="oldPsw" #oldPsw> 
+                <label for="newPsw">Nuova password</label>
+                <input type="password" id="newPsw" #newPsw (keyup.enter)="updatePassword(oldPsw.value, newPsw.value)"> 
+                <button (click)="updatePassword(oldPsw.value, newPsw.value)">Aggiorna password</button>
+                <div *ngIf="updatePswErrorMsg" role="alert">
+                    Errore: {{ updatePswErrorMsg }}
+                </div>
+                
+            </div>
+        </div>
+    </div>
 
     <div *ngIf="us.is_passenger()">
         

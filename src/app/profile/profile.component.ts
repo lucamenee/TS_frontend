@@ -3,10 +3,12 @@ import { Router } from '@angular/router';
 import { CommonModule, registerLocaleData } from '@angular/common';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
 import localeIt from '@angular/common/locales/it';
+import { ViewChild } from '@angular/core';
 
 import { UserHttpService } from '../user-http.service';
 
 import { Airport } from '../my_types/Airport';
+import { PassThrough } from 'node:stream';
 
 
 interface myFlight {
@@ -28,6 +30,11 @@ interface myFlight {
 export class ProfileComponent implements OnInit {
 
   public mySeats: myFlight[] = [];
+  public updatePswErrorMsg = undefined;
+  public showPasswordUpdater: boolean = false;
+  @ViewChild('oldPsw') inputOldPsw : any; 
+  @ViewChild('newPsw') inputNewPsw : any; 
+
 
   constructor(public us: UserHttpService, private router: Router, private http: HttpClient) {
 
@@ -38,10 +45,7 @@ export class ProfileComponent implements OnInit {
 
   }
 
-  ngOnInit(): void {
-    
-
-
+  ngOnInit(): void { 
     this.http.get(this.us.url + '/myFlights',  {
       headers: new HttpHeaders({
         Authorization: 'Bearer ' + this.us.get_token(),
@@ -58,6 +62,41 @@ export class ProfileComponent implements OnInit {
       }
     });
 
+  }
+
+  updatePassword(oldPsw: string, newPsw: string) : void {
+    if (!oldPsw || !newPsw) {
+      alert('Tutti i campi sono obbligatori!');
+      return;
+    }
+    this.http.post(this.us.url + '/updatePassword', {
+      oldPsw: oldPsw,
+      newPsw: newPsw,
+    }, {
+      headers: new HttpHeaders({
+        Authorization: 'Bearer ' + this.us.get_token(),
+        'cache-control': 'no-cache',
+        'Content-Type': 'application/json',
+      })
+    }).subscribe({
+      next: () => {
+        console.log('password updated successfully');
+        this.inputOldPsw.nativeElement.value = '';
+        this.inputNewPsw.nativeElement.value = '';
+        this.showPasswordUpdater = false;
+        alert('Password aggiornata con successo');
+        this.updatePswErrorMsg = undefined;
+      },
+      error: (error) => {
+        console.log(error);
+        this.updatePswErrorMsg = error.error.errormessage;
+      }
+    })
+  }
+
+  togglePasswordChanger() {
+    this.showPasswordUpdater = !this.showPasswordUpdater;
+    this.updatePswErrorMsg = undefined;
   }
 
   
