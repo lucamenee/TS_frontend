@@ -2,10 +2,10 @@
 
     <div class="profile-header">
         <div class="user-info">
-            {{ us.get_name() }} <br>
+            <p>{{ us.get_name() }}</p>
             <p *ngIf="us.is_passenger()">{{ us.get_surname() }}</p>
-            {{ us.get_mail() }} <br>
-            {{ us.get_role() }} <br><br>
+            <p>{{ us.get_mail() }}</p> 
+            <p>{{ us.get_role() }}</p>
         </div>
     
         <div [ngClass]="showPasswordUpdater ? 'change-password-outer' : ''">

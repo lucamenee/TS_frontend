@@ -1,0 +1,34 @@
+<div>
+    
+    <h1>Registrazione</h1>
+
+    <label for="inputName">Nome</label>
+    <input type="text" #NameText id="inputName" placeholder="Nome" required autofocus> 
+    <br>
+
+    <label for="inputSurname">Cognome</label>
+    <input type="text" #surnameText id="inputSurname" placeholder="Cognome" required autofocus> 
+    <br>
+
+    <label for="inputUsername">Username</label>
+    <input type="text" #usernameText id="inputUsername" placeholder="Username" required autofocus> 
+    <br>
+
+    <label for="inputEmail">Email</label>
+    <input type="text" #emailText id="inputEmail" placeholder="Email" required autofocus> 
+    <br>
+
+    <label for="inputPassword">Password</label>
+    <input type="password" #passwordText id="inputPassword" placeholder="Password" required 
+    (keyup.enter)="register(NameText.value, surnameText.value, usernameText.value, emailText.value, passwordText.value)">
+
+    
+    <input type="submit" (click)="register(NameText.value, surnameText.value, usernameText.value, emailText.value, passwordText.value);" value="Registrati">
+    
+    
+    <div *ngIf="errmessage" role="alert">
+        Errore durante la registrazione: {{ errmessage }}
+    </div>
+
+</div>
+

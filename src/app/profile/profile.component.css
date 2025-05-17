@@ -84,10 +84,12 @@ div p, div h4 {
 }
 
 .user-info {
-    min-width: 220px;
+    min-width: 220px;    
+}
+
+.user-info p {
     font-size: 1.1rem;
     color: #333;
-    /* Optionally, align left */
     text-align: left;
 }
 

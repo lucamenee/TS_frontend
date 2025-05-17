@@ -7,10 +7,12 @@ import { AdminComponent } from './admin/admin.component';
 import { adminGuard } from './guard/admin.guard';
 import { airlineGuard } from './guard/airline.guard';
 import { AirlineComponent } from './airline/airline.component';
+import { SignupComponent } from './signup/signup.component';
 
 export const routes: Routes = [
     { path: '', title: 'Home', component: FlightSearch },
     { path: 'login', title: 'Login', component: LoginComponent },
+    { path: 'signup', title: 'Sign-up', component: SignupComponent },
     { path: 'flight/:id', title: 'Dettagli volo', component: FlightDetail },
     { path: 'profile', title: 'Profilo', component: ProfileComponent },
     { path: 'airline', title: 'Dashboard', component: AirlineComponent, canActivate: [airlineGuard] },

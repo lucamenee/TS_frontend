@@ -9,12 +9,13 @@
     <label for="inputPassword">Password</label>
     <input type="password" #passwordText id="inputPassword" placeholder="Password" required (keyup.enter)="login(usernameText.value, passwordText.value)">
 
+    
     <div *ngIf="errmessage" role="alert">
         Errore durante il login: {{ errmessage }}
     </div>
-
     <input type="submit" (click)="login(usernameText.value, passwordText.value);" value="Login">
-    <p><a routerLink="/signup">Sign-up new user</a></p>
+    <br><br>
+    <p><a href="/signup">Sign-up new user</a></p>
 
 
 </div>
