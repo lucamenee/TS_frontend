@@ -40,7 +40,7 @@ export class FlightSearch {
   // connectingFlights!: Observable<Flight[]>;
   selectedDeparture: string = '';
   selectedDestination: string = '';
-  showAdvancedSearch: boolean = true;
+  showAdvancedSearch: boolean = false;
   stops: boolean = true;
   fromDate: Date = new Date();
   maxPrice: number = 1000;

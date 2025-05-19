@@ -8,7 +8,7 @@ import { ViewChild } from '@angular/core';
 import { UserHttpService } from '../user-http.service';
 
 import { Airport } from '../my_types/Airport';
-import { PassThrough } from 'node:stream';
+import { Seat } from '../my_types/Seat';
 
 
 interface myFlight {
@@ -18,7 +18,7 @@ interface myFlight {
   departureDate: Date,
   destinationDate: Date,
   flightId: string,
-  seats: [{seatNumber: string, seatPrice: number}]
+  seats: [Seat]
 }
 
 @Component({
@@ -98,6 +98,7 @@ export class ProfileComponent implements OnInit {
     this.showPasswordUpdater = !this.showPasswordUpdater;
     this.updatePswErrorMsg = undefined;
   }
+
 
   
 

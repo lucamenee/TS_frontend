@@ -15,12 +15,17 @@ div p, div h4 {
 
 /* Styling for the "I miei biglietti" section */
 .my-flights {
-    margin-top: 1rem;
-    padding: 1rem;
+    margin-top: 1.5rem;
+    padding: 0rem;
+}
+
+.flight {
+    padding: 0px;
+    margin: 1rem;
     border: 1px solid #ccc;
     border-radius: 8px;
-    background-color: #f9f9f9;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    margin-bottom: 3rem;
 }
 
 /* Styling for each flight */
@@ -29,10 +34,8 @@ div p, div h4 {
     justify-content: space-between;
     align-items: center;
     padding: 1rem;
-    border-bottom: 1px solid #ccc;
     background-color: #e9ecef;
-    border-radius: 4px;
-    margin-bottom: 1rem;
+    border-bottom: 1px dashed #727171;
 }
 
 .flight-head-element {
@@ -58,20 +61,25 @@ div p, div h4 {
     gap: 1rem;
     padding: 1rem;
     background-color: #ffffff;
-    border: 1px solid #ccc;
-    border-radius: 8px;
 }
 
 .seat {
     padding: 0.5rem 1rem;
-    border: 1px solid #007bff;
+    border: 1px solid lightgrey;
     border-radius: 4px;
-    background-color: #f0f8ff;
-    color: #007bff;
-    font-size: 0.9rem;
     text-align: center;
-    cursor: pointer;
-    transition: background-color 0.3s ease, color;
+    /* transition: background-color 0.3s ease, color; */
+    display: flex;
+    flex-direction: row;
+}
+
+.seat-info {
+    padding: 0;
+}
+
+.seat p, div {
+    color: #002933;
+    font-size: 0.9rem;
 }
 
 /* Profile header */

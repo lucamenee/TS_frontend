@@ -35,34 +35,35 @@
 
 <br>
 
-<h4 (click)="showAdvancedSearch = !showAdvancedSearch" style="cursor: pointer;"> Ricerca avanzata </h4>
+<h4 (click)="showAdvancedSearch = !showAdvancedSearch" style="cursor: pointer; display: flex; align-items: center; user-select: none;">
+  <span *ngIf="!showAdvancedSearch" style="margin-right: 8px;">+</span>
+  <span *ngIf="showAdvancedSearch" style="margin-right: 8px;">-</span>
+  ricerca avanzata
+</h4>
 <br>
-<form *ngIf="showAdvancedSearch">
-  <div class="advanced-search">
+<div class="advanced-search" *ngIf="showAdvancedSearch">
 
-    <div class="criteria-box">
-      <label for="stops" class="switch">
-        <input id="stops" type="checkbox" checked [(ngModel)]="this.stops" name="stops" placeholder="s">
-        <span class="slider round"></span>
-      </label>
-      
-      <p>Scalo</p>
-    </div> 
-
+  <div class="criteria-box">
+    <label for="stops" class="switch">
+      <input id="stops" type="checkbox" checked [(ngModel)]="this.stops" name="stops" placeholder="s">
+      <span class="slider round"></span>
+    </label>
     
+    <p>Scalo</p>
+  </div> 
 
-    <div class="criteria-box">
-      <label for="maxPrice">Prezzo massimo</label>
-      <input type="number" name="maxPrice" id="maxPrice" [(ngModel)]="this.maxPrice" min="0">
-    </div>
-    
+  
+
+  <div class="criteria-box">
+    <label for="maxPrice">Prezzo massimo</label><br>
+    <input type="number" name="maxPrice" id="maxPrice" [(ngModel)]="this.maxPrice" min="0" max="1000000">
+  </div>
+  
 
 
 
   </div>
 
-
-</form>
 
 <br><br>
 

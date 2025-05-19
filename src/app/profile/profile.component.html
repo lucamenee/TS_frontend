@@ -31,7 +31,7 @@
         
         <h4>I miei biglietti</h4>
         <div class="my-flights">
-            <div *ngFor="let flight of mySeats" >
+            <div *ngFor="let flight of mySeats" class="flight">
                 <div class="flight-head">
                     <div class="flight-head-element">
                         <h3>{{ flight.departure.airportName }}</h3>
@@ -49,10 +49,18 @@
 
                 <div class="seats">
                     <div *ngFor="let seat of flight.seats" class="seat">
-                        {{ seat.seatNumber }}, {{ seat.seatPrice }} €
+                        <div class="seat-info">
+                            <p>
+                                {{ seat.seatNumber }}, {{ seat.seatPrice }} € 
+                            </p>
+                            <p>
+                                {{ seat.passengerName }}
+                            </p>
+                        </div>
+                        <!-- insert button to delete prenotation -->
+                        <div>icon</div>
                     </div>
                 </div>
-                <br>
             </div>
     
     
