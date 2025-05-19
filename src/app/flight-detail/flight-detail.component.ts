@@ -21,10 +21,12 @@ import { error } from 'console';
 export class FlightDetail implements OnInit {
   flightId: string = '';
   flight!: Flight;
+  myId !: string;
 
   constructor(private route: ActivatedRoute, private us: UserHttpService, private http: HttpClient, 
     public router: Router) {
     registerLocaleData(localeIt, 'it-It');
+    this.myId = this.us.get_id();
   }
 
   ngOnInit(): void {
@@ -54,9 +56,15 @@ export class FlightDetail implements OnInit {
 
     // manda alert per conferma con dati riepologativi
     if (confirm('Riepilogo: posto: ' + number + ', ' + price + ' € \n Conferma prenotazione')) {
+      let passengerName = prompt("Nominativo del passeggero:", this.us.get_name() + ' ' + this.us.get_surname());
+      if (!passengerName) {
+        alert('Prenotazione annullata');
+        return;
+      }
       this.http.post(this.us.url + '/bookFlight', {
         flightId: this.flightId,
-        seats: [id]
+        seats: [id],
+        passengerName: passengerName
       }, {
         headers: new HttpHeaders({
           Authorization: 'Bearer ' + this.us.get_token(),

@@ -45,7 +45,7 @@
     width: 25%
 }
 /* Style for individual seats */
-.free-seat, .occupy-seat {
+.free-seat, .occupy-seat, .my-seat {
     border: 1px solid black;
     width: 25;
     border-radius: 4px;
@@ -76,6 +76,13 @@
     /* cursor: not-allowed; */
     text-decoration: line-through;
     pointer-events: none;
+}
+
+.my-seat {
+    background-color: #65be7b;
+    color: #3d3d3d;
+    pointer-events: none;
+
 }
 
 /* Responsive design for seats */

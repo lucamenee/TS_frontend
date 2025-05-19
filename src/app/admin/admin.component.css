@@ -18,8 +18,7 @@ div [role=alert] {
     flex-wrap: wrap;
     align-items: start;
     gap: 3rem;
-    margin: 2rem
-    
+    margin: 2rem;
 }
 
 .admin-dashboard-element {

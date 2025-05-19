@@ -28,18 +28,19 @@
             <div *ngFor="let seat of flight.aircraft.economySeats" 
                 [ngClass]="{
                     'free-seat': seat.passenger == null,
-                    'occupy-seat': seat.passenger != null    
-                }" (click)="bookSeat(seat._id, seat.seatNumber, seat.seatPrice)">
+                    'my-seat': seat.passenger == myId,
+                    'occupy-seat': seat.passenger != null && seat.passenger != myId                }" (click)="bookSeat(seat._id, seat.seatNumber, seat.seatPrice)">
                 {{seat.seatNumber}}, {{seat.seatPrice}} €
             </div>
-        </div>
+        </div> 
 
         <div class="seats-column">
             <h5 class="seats-column-title">Business</h5>
             <div *ngFor="let seat of flight.aircraft.businessSeats" 
                 [ngClass]="{
                     'free-seat': seat.passenger == null,
-                    'occupy-seat': seat.passenger != null    
+                    'my-seat': seat.passenger == myId,
+                    'occupy-seat': seat.passenger != null && seat.passenger != myId   
                 }" (click)="bookSeat(seat._id, seat.seatNumber, seat.seatPrice)">
                 {{seat.seatNumber}}, {{seat.seatPrice}} €
             </div>
@@ -50,7 +51,8 @@
             <div *ngFor="let seat of flight.aircraft.firstClassSeats" 
                 [ngClass]="{
                     'free-seat': seat.passenger == null,
-                    'occupy-seat': seat.passenger != null    
+                    'my-seat': seat.passenger == myId,
+                    'occupy-seat': seat.passenger != null && seat.passenger != myId 
                 }" (click)="bookSeat(seat._id, seat.seatNumber, seat.seatPrice)">
                 {{seat.seatNumber}}, {{seat.seatPrice}} €
             </div>
