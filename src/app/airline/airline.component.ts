@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-airline',
@@ -7,5 +8,6 @@ import { Component } from '@angular/core';
   styleUrl: './airline.component.css'
 })
 export class AirlineComponent {
+  constructor(public router: Router) {}
 
 }

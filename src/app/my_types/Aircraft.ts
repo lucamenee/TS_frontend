@@ -8,4 +8,6 @@ export interface Aircraft {
     economySeats: Seat[],
     businessSeats: Seat[],
     firstClassSeats: Seat[],
+    _id: string,
+    show: boolean;
 }

@@ -1,0 +1,22 @@
+h2 {
+    color: #006ee4;
+    font-size: 2rem;
+    text-align: center;
+}
+
+.dashboard {
+    display: flex;
+    padding: 2rem;
+    justify-content: space-evenly;
+}
+
+.dashboard-button {
+    background-color: #3d99fc;
+    border: 1px solid #025fc4;
+    font-size: large;
+    border-radius: 8px;
+    color: white;
+    width: 12rem;
+    height: 4.5rem;
+    cursor: pointer;
+}

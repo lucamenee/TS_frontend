@@ -4,5 +4,6 @@ export interface Seat {
     seatPrice: number,
     passengerName: string,
     extras: any[],
-    _id: string
+    _id: string,
+    editing: boolean,
 }

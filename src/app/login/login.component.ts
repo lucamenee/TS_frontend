@@ -1,13 +1,13 @@
 import { afterNextRender, Component } from '@angular/core';
 import { UserHttpService } from '../user-http.service';
 import { CommonModule } from '@angular/common';
-import { Router, RouterOutlet } from '@angular/router';
+import { Router } from '@angular/router';
 import { User } from '../my_types/User';
 import { JsonPipe } from '@angular/common';
 
 @Component({
   selector: 'app-login',
-  imports: [CommonModule, RouterOutlet],
+  imports: [CommonModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',
   standalone: true

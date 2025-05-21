@@ -1,0 +1,167 @@
+<h2>Gestione della flotta</h2>
+
+<div class="aircrafts">
+
+    <div class="add-aircraft"> 
+        <h4>Aggiungi un nuovo aereo</h4>
+        <table>
+            <tr>
+                <td><label for="producer">Produttore</label></td>
+                <td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                <td><input id="producer" type="text" #producer> </td>
+            </tr>
+
+            <tr>
+                <td><label for="model">Modello</label> </td>
+                <td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                <td><input id="model" type="text" #model> </td>
+            </tr>
+
+            <!-- try to insert here seat creation's logic-->
+            <tr>
+                <td>Economy</td>
+                <td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                <td> <input type="number" placeholder="numero prima fila" min="0" #numberStartE> </td>
+                <td> <input type="number" placeholder="numero ultima fila" min="0" #numberEndE> </td>
+                <td> <input type="number" placeholder="colonne" max="20" min="0" #colsE> </td>
+                <td> <input type="number" placeholder="prezzo defualt" max="1000000" min="0" #priceE> </td>
+            </tr>
+
+            <tr>
+                <td>Business</td>
+                <td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                <td> <input type="number" placeholder="numero prima fila" min="0" #numberStartB> </td>
+                <td> <input type="number" placeholder="numero ultima fila" min="0" #numberEndB> </td>
+                <td> <input type="number" placeholder="colonne" max="20" min="0" #colsB> </td>
+                <td> <input type="number" placeholder="prezzo defualt" max="1000000" min="0" #priceB> </td>
+            </tr>
+
+            <tr>
+                <td>First</td>
+                <td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                <td> <input type="number" placeholder="numero prima fila" min="0" #numberStartF> </td>
+                <td> <input type="number" placeholder="numero ultima fila" min="0" #numberEndF> </td>
+                <td> <input type="number" placeholder="colonne" max="20" min="0" #colsF> </td>
+                <td> <input type="number" placeholder="prezzo defualt" max="1000000" min="0" #priceF> </td>
+            </tr>
+            
+            
+
+            <tr>
+                <button (click)="createFlight(producer.value, model.value, +numberStartE.value, +numberEndE.value, +colsE.value, +priceE.value,
+                    +numberStartB.value, +numberEndB.value, +colsB.value, +priceB.value,
+                    +numberStartF.value, +numberEndF.value, +colsF.value, +priceF.value
+                )">
+                    Crea aereo
+                </button>
+            </tr>
+            
+
+
+        </table>        
+    </div>
+
+
+    <div *ngFor="let aircraft of aircrafts | async" class="aircraft">
+        <h3 (click)="aircraft.show = !aircraft.show">{{aircraft.producer}} {{aircraft.modelName}}</h3>
+        <div class="seats-container" *ngIf="aircraft.show || aircraft.show == undefined">
+
+            <div class="class">
+                <h4>Economy</h4>
+                <div class="seats">
+                    <div *ngFor="let seat of aircraft.economySeats" class="seat">
+                        {{seat.seatNumber }} <br> 
+                        <label for="priceInput">€ </label>
+                        <input
+                            type="number"
+                            [value]="seat.seatPrice"
+                            [readonly]="!seat.editing"
+                            (dblclick)="seat.editing = true"
+                            (keyup.esc)="seat.editing = false; updateAircrafts()"
+                            #priceInput
+                            id="priceInput"
+                            min="0"
+                            max="1000000"                                            
+                        />
+                        <button *ngIf="seat.editing" 
+                        (click)="updateSeatPrice(aircraft._id, seat._id, +priceInput.value, 'E'); seat.editing = false">
+                            💾
+                        </button>    
+                    </div>
+                </div>
+
+                <div class="addSeat">
+                    <input type="text" maxlength="4" placeholder="num" style="width: 3rem;" #numberInputE>
+                    <input type="number" min="0" max="1000000" placeholder="default €" #priceInputE>
+                    <button (click)="addSeat(aircraft._id, numberInputE.value, +priceInputE.value, 'E')">+</button>
+                </div>
+
+            </div>
+
+            <div class="class">
+                <h4>Business</h4>
+                <div class="seats">
+                    <div *ngFor="let seat of aircraft.businessSeats" class="seat">
+                        {{seat.seatNumber }} <br> 
+                        <label for="priceInput">€ </label>
+                        <input
+                            type="number"
+                            [value]="seat.seatPrice"
+                            [readonly]="!seat.editing"
+                            (dblclick)="seat.editing = true"
+                            (keyup.esc)="seat.editing = false; updateAircrafts()"
+                            #priceInput
+                            id="priceInput"
+                            min="0"
+                            max="1000000"                                            
+                        />
+                        <button *ngIf="seat.editing" 
+                        (click)="updateSeatPrice(aircraft._id, seat._id, +priceInput.value, 'B'); seat.editing = false">
+                            💾
+                        </button>
+                    </div>
+                </div>
+
+                <div class="addSeat">
+                    <input type="text" maxlength="4" placeholder="num" style="width: 3rem;" #numberInputB>
+                    <input type="number" min="0" max="1000000" placeholder="default €" #priceInputB>
+                    <button (click)="addSeat(aircraft._id, numberInputB.value, +priceInputB.value, 'B')">+</button>
+                </div>
+            </div>
+
+
+            <div class="class">
+                <h4>Prima classe</h4>
+                <div class="seats">
+                    <div *ngFor="let seat of aircraft.firstClassSeats" class="seat">
+                        {{seat.seatNumber }} <br> 
+                        <label for="priceInput">€ </label>
+                        <input
+                            type="number"
+                            [value]="seat.seatPrice"
+                            [readonly]="!seat.editing"
+                            (dblclick)="seat.editing = true"
+                            (keyup.esc)="seat.editing = false; updateAircrafts()"
+                            #priceInput
+                            id="priceInput"
+                            min="0"
+                            max="1000000"                                            
+                        />
+                        <button *ngIf="seat.editing" 
+                        (click)="updateSeatPrice(aircraft._id, seat._id, +priceInput.value, 'F'); seat.editing = false">
+                            💾
+                        </button>
+                    </div>                    
+                </div>
+
+                <div class="addSeat">
+                    <input type="text" maxlength="4" placeholder="num" style="width: 3rem;" #numberInputF>
+                    <input type="number" min="0" max="1000000" placeholder="default €" #priceInputF>
+                    <button (click)="addSeat(aircraft._id, numberInputF.value, +priceInputF.value, 'F')">+</button>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+</div>

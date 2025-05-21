@@ -1,1 +1,7 @@
-<p>airline works!</p>
+<h2>Dashboard</h2>
+
+<div class="dashboard">
+    <button (click)="this.router.navigate(['airline/aircrafts'])" class="dashboard-button">Gestione flotta</button>
+    <button (click)="this.router.navigate(['airline/flights'])" class="dashboard-button">Gestione voli</button>
+    <button (click)="this.router.navigate(['airline/statistics'])" class="dashboard-button">Visualizza statistiche</button>
+</div>
