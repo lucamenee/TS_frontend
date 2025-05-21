@@ -179,3 +179,11 @@ div p, div h4 {
     margin-top: 0.5rem;
     max-width: 100%;
 }
+
+.delete-button {
+    margin-left: 1rem;
+    border: none;
+    background-color: transparent;
+    padding: none;
+    font-size: large;
+}

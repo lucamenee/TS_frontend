@@ -27,7 +27,7 @@ interface RecievedToken {
 
 @Injectable()
 export class UserHttpService {
-    public url = 'http://localhost:1337';    
+    public readonly url = 'http://localhost:1337';    
     private token: string = '';
     private isLoggedIn = false;
 
@@ -92,14 +92,6 @@ export class UserHttpService {
         )
     }
 
-
-    // logout() {
-    //     console.log('Logging out');
-    //     this.token = '';
-    //     this.ngZone.run(() => {
-    //         localStorage.setItem('tailwind_token', this.token);
-    //     })
-    // }
 
     logout() {
         // Clear the token and update login state

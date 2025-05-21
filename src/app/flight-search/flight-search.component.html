@@ -56,7 +56,7 @@
 
   <div class="criteria-box">
     <label for="maxPrice">Prezzo massimo</label><br>
-    <input type="number" name="maxPrice" id="maxPrice" [(ngModel)]="this.maxPrice" min="0" max="1000000">
+    <input type="number" name="maxPrice" id="maxPrice" [(ngModel)]="this.maxPrice" min="0" max="1000000"> €
   </div>
   
 
@@ -98,6 +98,12 @@
   
     <div *ngIf="stops">
       <div *ngFor="let flight of filterConnectingFlights(flightData.connectingFlights)" class="connected-flight">
+        
+        <div class="connected-flight-summary">
+          Totale: {{minPrice(flight.firstLeg) + minPrice(flight.secondLeg) }} €, {{ printTimeTranfer(flight.firstLeg.departureDate, flight.secondLeg.destinationDate) }}
+ 
+        </div>
+        
         <div class="flight" (click)="this.router.navigate(['/flight/' + flight.firstLeg._id])">
           <div class="airport">
             {{ flight.firstLeg.departure.city }} <br>
@@ -146,10 +152,6 @@
           </div>
         </div>
 
-        <div class="connected-flight-summary">
-          Totale: {{minPrice(flight.firstLeg) + minPrice(flight.secondLeg) }} €, {{ printTimeTranfer(flight.firstLeg.departureDate, flight.secondLeg.destinationDate) }}
- 
-        </div>
 
       </div>
 

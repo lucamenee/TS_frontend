@@ -2,8 +2,9 @@
 
     <div class="profile-header">
         <div class="user-info">
-            <p>{{ us.get_name() }}</p>
-            <p *ngIf="us.is_passenger()">{{ us.get_surname() }}</p>
+            <p>{{ us.get_name() }} 
+                <b *ngIf="us.is_passenger()">{{ us.get_surname() }}</b>
+            </p>
             <p>{{ us.get_mail() }}</p> 
             <p>{{ us.get_role() }}</p>
         </div>
@@ -31,6 +32,8 @@
         
         <h4>I miei biglietti</h4>
         <div class="my-flights">
+            <h5 style="text-align: center;" *ngIf="mySeats.length==0">Non hai ancora prenotato nessun volo</h5>
+
             <div *ngFor="let flight of mySeats" class="flight">
                 <div class="flight-head">
                     <div class="flight-head-element">
@@ -57,8 +60,7 @@
                                 {{ seat.passengerName }}
                             </p>
                         </div>
-                        <!-- insert button to delete prenotation -->
-                        <div>icon</div>
+                        <button *ngIf="isAfterToday(flight.departureDate)" class="delete-button" (click)="deleteBooking(flight.flightId, seat._id)">🗑️</button>
                     </div>
                 </div>
             </div>

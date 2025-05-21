@@ -29,15 +29,7 @@ export class FlightSearch {
       secondLeg: Flight
     }]
   }>;
-  // updatedFlight!: {
-  //   directFlights: Flight[]; 
-  //   connectingFlights: [{
-  //     firstLeg: Flight;
-  //     secondLeg: Flight
-  //   }]
-  // };
-  // directFlights!: Observable<Flight[]>;
-  // connectingFlights!: Observable<Flight[]>;
+  
   selectedDeparture: string = '';
   selectedDestination: string = '';
   showAdvancedSearch: boolean = false;

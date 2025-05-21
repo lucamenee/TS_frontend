@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ɵsetAlternateWeakRefImpl } from '@angular/core';
 import { Router } from '@angular/router';
 import { CommonModule, registerLocaleData } from '@angular/common';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
@@ -28,7 +28,6 @@ interface myFlight {
   styleUrls: ['./profile.component.css']
 })
 export class ProfileComponent implements OnInit {
-
   public mySeats: myFlight[] = [];
   public updatePswErrorMsg = undefined;
   public showPasswordUpdater: boolean = false;
@@ -45,7 +44,7 @@ export class ProfileComponent implements OnInit {
 
   }
 
-  ngOnInit(): void { 
+  updateMyFlight() {
     this.http.get(this.us.url + '/myFlights',  {
       headers: new HttpHeaders({
         Authorization: 'Bearer ' + this.us.get_token(),
@@ -55,13 +54,15 @@ export class ProfileComponent implements OnInit {
     }).subscribe({
       next: (data: any) => {
         this.mySeats = data;
-        console.log(this.mySeats)
       }, 
       error: (error) => {
         console.log(error.message)
       }
     });
+  }
 
+  ngOnInit(): void { 
+    this.updateMyFlight();
   }
 
   updatePassword(oldPsw: string, newPsw: string) : void {
@@ -99,6 +100,36 @@ export class ProfileComponent implements OnInit {
     this.updatePswErrorMsg = undefined;
   }
 
+  deleteBooking(flightId: string, seatId: string) {
+    if (!confirm("Confermi l'eliminazione della prenotazione del volo?")) 
+      return;
+    this.http.delete(this.us.url + '/bookFlight', {
+      headers: new HttpHeaders({
+        Authorization: 'Bearer ' + this.us.get_token(),
+        'cache-control': 'no-cache',
+        'Content-Type': 'application/json',
+      }),
+      body: {
+        flightId: flightId,
+        seatId: seatId,
+      }
+    }).subscribe({
+      next: (d) => {
+        console.log('booking deleted');
+        this.updateMyFlight();
+        alert('prenotazione eliminata con successo');
+      },
+      error: (error) => {
+        console.log(error);
+        alert(error.error.errormessage);
+      }
+    })
+  }
+
+
+  isAfterToday(date: Date): boolean {
+    return new Date(date).getTime() > new Date().getTime();
+  }
 
   
 
