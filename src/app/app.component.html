@@ -2,7 +2,7 @@
     <div class="site-name" (click)="this.router.navigate(['/'])">Tailwind setter</div>
     <div class="banner-buttons">
         <button routerLink="/login" *ngIf="!this.us.is_logged()">Login</button>
-        <button routerLink="/profile" *ngIf="this.us.is_logged()">Profile</button>
+        <button routerLink="/profile" *ngIf="this.us.is_logged()">Profilo</button>
         <button (click)="this.us.logout()" *ngIf="this.us.is_logged()">Logout</button>
         <button routerLink="/admin" *ngIf="this.us.is_admin()">Admin</button>
         <button routerLink="/airline" *ngIf="this.us.is_airline()">Airline</button>

@@ -1,1 +1,65 @@
-<p>flight-management works!</p>
+<h2>Gestione voli</h2>
+
+<div>
+    <div class="add-route">
+        <!-- adding new flight section -->
+    </div>
+    
+    <div class="search-routes">
+        <div>
+            <label for="departure">Partenza:</label>
+            <select title="departure" #departure name="departure">
+                <option value="" selected disabled hidden>Seleziona partenza</option>
+                <option *ngFor="let airport of airports | async" [value]="airport._id">
+                    {{ airport.city }}, {{ airport.airportName }} - {{ airport.IATA }}
+                </option>
+            </select>
+        </div>
+        <div>
+            <label for="destination">Destinazione:</label>
+            <select title="destination" #destination name="destination">
+                <option value="" selected disabled hidden>Seleziona destinazione</option>
+                <option *ngFor="let airport of airports | async" [value]="airport._id">
+                    {{ airport.city }}, {{ airport.airportName }} - {{ airport.IATA }}
+                </option>
+            </select>
+        </div>
+        <div>
+            <label for="fromDate">A partire dal:</label>
+            <input type="date" name="fromDate" id="fromDate" #fromDate [value]="this.fromDate | date:'yyyy-MM-dd'"> 
+        </div>
+
+        <button (click)="this.filteredRoutes = filterRoutes(departure.value, destination.value, fromDate.value)">Cerca</button>    
+        <button (click)="updatedMyRoutes()">Reset</button>
+
+    </div>
+
+    <div class="routes">
+        <!-- add flight section -->
+        <div class="route" *ngFor="let route of filteredRoutes">
+            <h4 (click)="route.show=!route.show">
+                <span *ngIf="!route.show">+ </span>
+                <span *ngIf="route.show">- &nbsp;</span>
+                <span >{{ route.departure.airportName }} &rarr; {{ route.destination.airportName }}</span>
+
+            </h4>
+            
+            <div class="flights" *ngIf="route.show">
+                <div class="flight" *ngFor="let flight of route.flights">
+                    <!-- cose da inserire: 
+                     info, 
+                     SOLO PER VOLI FUTURI: modifica(orari, aereo, prezzi) -> potrebbe aver senso fare pagina apposta così da mostrare bene tutti i posti, prezzi ecc.. (magari metti anche delete del volo la)
+                    -->
+                    <table>
+                    <tr><td>Decollo</td> <td>&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>{{ flight.departureDate | date: 'full':'+0100':'it-IT' }}</td></tr>
+                    <tr><td>Atterraggio </td> <td>&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>{{ flight.destinationDate | date: 'full':'+0100':'it-IT' }}</td></tr>
+                    <tr><td>Aerero </td> <td>&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>{{ flight.aircraft.modelName }}</td></tr>
+                    </table>
+                    
+                    <button class="edit" (click)="this.router.navigate(['airline/flights/' + flight._id])">✏️</button>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

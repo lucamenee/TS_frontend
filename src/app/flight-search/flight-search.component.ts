@@ -38,7 +38,7 @@ export class FlightSearch {
   maxPrice: number = 1000;
 
   constructor(private http: HttpClient, public router: Router) { 
-    this.airports = this.http.get<Airport[]>(this.ROOT_URL + '/airports');
+    this.getAirports();
   }
 
   getAirports() {

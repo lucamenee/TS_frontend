@@ -1,0 +1,107 @@
+h2 {
+    color: #006ee4;
+    font-size: 2rem;
+    text-align: center;
+}
+
+.routes {
+    margin-top: 2rem;
+}
+
+.route {
+    margin: 1.2rem 0.5rem;
+    padding: 1rem;
+    border: 1px solid lightgrey;
+    border-radius: 8px;
+}
+
+.route h4 {
+    cursor: pointer;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.flights {
+    margin-top: 1rem;
+}
+
+.flight {
+    margin: .7rem 0.2rem;
+    padding: 0.5rem;
+    border: 1px solid lightgrey;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: row;
+}
+
+.flight .edit {
+    margin-left: 2rem;
+    font-size: 1.5rem;
+    width: auto;
+    height: 60%;
+    padding: 0.2rem;
+    border: 1px solid lightgray;
+    border-radius: 8px;
+    background-color:whitesmoke;
+    cursor: pointer;
+}
+
+.search-routes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    align-items: flex-end;
+    background: #f5f8fa;
+    padding: 1rem 1rem 1rem 1rem;
+    border-radius: 8px;
+    margin: 2rem auto 2rem auto;
+    border: 1px solid lightblue;
+    max-width: 90%;
+}
+
+.search-routes > div {
+    display: flex;
+    flex-direction: column;
+    min-width: 180px;
+    margin: 0;
+    padding: 0;
+}
+
+.search-routes label {
+    font-weight: 500;
+    color: #007bff;
+    margin-bottom: 0.3rem;
+}
+
+.search-routes select,
+.search-routes input[type="date"] {
+    padding: 0.4rem 0.6rem;
+    border: 1px solid #bcd0ee;
+    border-radius: 4px;
+    font-size: 1rem;
+    background: #fff;
+}
+
+.search-routes button {
+    background: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 0.5rem 1.2rem;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    margin-left: 0.5rem;
+    margin-top: 1.2rem;
+    transition: background 0.2s;
+}
+
+.search-routes button:hover {
+    background: #0056b3;
+}
+
+
