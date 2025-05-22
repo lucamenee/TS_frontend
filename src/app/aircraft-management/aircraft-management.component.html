@@ -63,8 +63,12 @@
 
 
     <div *ngFor="let aircraft of aircrafts | async" class="aircraft">
-        <h3 (click)="aircraft.show = !aircraft.show">{{aircraft.producer}} {{aircraft.modelName}}</h3>
-        <div class="seats-container" *ngIf="aircraft.show || aircraft.show == undefined">
+        <h3 (click)="aircraft.show = !aircraft.show">
+            <span *ngIf="!aircraft.show"> ⯈ </span>            
+            <span *ngIf="aircraft.show"> ⯆ </span>
+            {{aircraft.producer}} {{aircraft.modelName}}
+        </h3>
+        <div class="seats-container" *ngIf="aircraft.show">
 
             <div class="class">
                 <h4>Economy</h4>

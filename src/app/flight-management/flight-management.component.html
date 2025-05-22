@@ -7,7 +7,7 @@
     
     <div class="search-routes">
         <div>
-            <label for="departure">Partenza:</label>
+            <label for="departure">Partenza</label>
             <select title="departure" #departure name="departure">
                 <option value="" selected disabled hidden>Seleziona partenza</option>
                 <option *ngFor="let airport of airports | async" [value]="airport._id">
@@ -16,7 +16,7 @@
             </select>
         </div>
         <div>
-            <label for="destination">Destinazione:</label>
+            <label for="destination">Destinazione</label>
             <select title="destination" #destination name="destination">
                 <option value="" selected disabled hidden>Seleziona destinazione</option>
                 <option *ngFor="let airport of airports | async" [value]="airport._id">
@@ -25,21 +25,20 @@
             </select>
         </div>
         <div>
-            <label for="fromDate">A partire dal:</label>
+            <label for="fromDate">A partire dal</label>
             <input type="date" name="fromDate" id="fromDate" #fromDate [value]="this.fromDate | date:'yyyy-MM-dd'"> 
         </div>
 
         <button (click)="this.filteredRoutes = filterRoutes(departure.value, destination.value, fromDate.value)">Cerca</button>    
-        <button (click)="updatedMyRoutes()">Reset</button>
+        <button (click)="updatedMyRoutes(); departure.value=''; destination.value='';">Reset</button>
 
     </div>
 
     <div class="routes">
-        <!-- add flight section -->
         <div class="route" *ngFor="let route of filteredRoutes">
             <h4 (click)="route.show=!route.show">
-                <span *ngIf="!route.show">+ </span>
-                <span *ngIf="route.show">- &nbsp;</span>
+                <span *ngIf="!route.show"> ⯈ </span>
+                <span *ngIf="route.show"> ⯆ </span>
                 <span >{{ route.departure.airportName }} &rarr; {{ route.destination.airportName }}</span>
 
             </h4>

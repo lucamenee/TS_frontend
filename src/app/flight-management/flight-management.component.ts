@@ -49,7 +49,6 @@ export class FlightManagementComponent {
         this.myRoutes = this.filteredRoutes = routes;
         for(const route of this.myRoutes) {
           route.flights.sort((a, b) => new Date(b.departureDate).getTime() - new Date(a.departureDate).getTime());
-          console.log(route.flights);
         }
       }, 
       error: (error) => {
@@ -63,12 +62,9 @@ export class FlightManagementComponent {
   filteredRoutes!: Route[];
 
   filterRoutes(departure: string, destination: string, dateFrom: string) {
-    console.log('filter')
     return this.myRoutes.filter(route => {
       const matchesDeparture = !departure || route.departure._id == departure;
       const matchesDestination = !destination || route.destination._id == destination;
-      console.log(departure, route.departure._id);
-      console.log(destination, route.destination._id);
 
       const matchesDate = !dateFrom || route.flights.some(flight => {
         const flightDate = new Date(flight.departureDate);

@@ -1,3 +1,9 @@
+h2 {
+  color: #006ee4;
+  font-size: 2rem;
+  text-align: center;
+}
+
 /* Style for the flight container */
 .flight {
   border: 1px solid #ccc;
@@ -71,21 +77,27 @@ form {
   padding: 1rem;
   border: 1px solid #ccc;
   border-radius: 8px;
-  background-color: #f9f9f9;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  background-color: #f5f8fa;
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
   flex-wrap: wrap;
+  max-width: 90%;
+  margin-top: 1.5rem;
+}
+
+form div, button {
+  margin: 0.5rem 0.7rem;
 }
 
 /* Label styling */
 form label {
     font-size: 1rem;
-    font-weight: bold;
-    color: #333;
+    /* font-weight: bold; */
+    color: #007bff;
     margin-right: 0.5rem; /* Add spacing between label and input */
 }
 
 /* Select dropdown styling */
-form select {
+form select, input {
     padding: 0.5rem;
     font-size: 1rem;
     border: 1px solid #ccc;
@@ -94,6 +106,7 @@ form select {
     color: #333;
     outline: none;
     transition: border-color 0.3s ease;
+    margin-top: 0.3rem;
 }
 
 form select:focus {
