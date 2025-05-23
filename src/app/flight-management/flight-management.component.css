@@ -124,6 +124,34 @@ h2 {
 }
 
 
+.seats-column-input {
+    display:flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+.seats-column-input label{
+    width:70%;
+}
+
+.free-seat, .occupy-seat {
+    border: 1px solid gray;
+    border-radius: 8px;
+    padding: 0.25rem;
+    width: 27%;
+}
+
+.free-seat {
+    background-color: rgba(14, 14, 14, 0.089);
+    color: black;
+    border: 1px solid black;
 
 
+}
 
+.occupy-seat {
+    background-color: lightgreen;
+    color: rgb(1, 58, 1);
+    border: 1px solid rgba(1, 58, 1);
+    /* text-decoration: line-through; */
+}

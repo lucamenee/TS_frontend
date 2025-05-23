@@ -186,4 +186,5 @@ div p, div h4 {
     background-color: transparent;
     padding: none;
     font-size: large;
+    cursor: pointer;
 }

@@ -4,12 +4,6 @@
     <div *ngIf="showAddFlight" class="pop-up-box-overlay">
 
         <div class="pop-up-box">
-            <!-- adding new flight section -->
-            <!-- <h4 (click)="showAddFlight = !showAddFlight" class="add-route-title">
-                <span *ngIf="!showAddFlight">⯈</span>
-                <span *ngIf="showAddFlight">⯆</span>
-                
-            </h4> -->
             
             <div class="add-route-form">
                 <button class="close-round-button" (click)="showAddFlight = false">❌</button>
@@ -70,7 +64,7 @@
                         <td>
                             <input type="text" [(ngModel)]="extras[i].name" placeholder="descrizione">
                             &nbsp;
-                            <input type="number" [(ngModel)]="extras[i].price" placeholder="prezzo" min="0" max="10000">
+                            <input type="number" [(ngModel)]="extras[i].price" placeholder="prezzo" min="0" max="1000">&nbsp;€
                             &nbsp;
                             <span *ngIf="i==extras.length-1">
                                 <button (click)="addExtra()" class="pop-up-box-button" style="background-color: rgb(193, 250, 205); border: 1px solid rgb(0, 88, 19);">✚</button>
@@ -85,6 +79,127 @@
                         </button>
                     </tr>
                 </table>
+                
+            </div>
+        </div>
+        
+    </div>
+
+    <div *ngIf="showEditFlight" class="pop-up-box-overlay" (click)="showEditFlight = false">
+
+        <div class="pop-up-box" (click)="$event.stopPropagation()">
+            
+            <div class="add-route-form">
+                <button class="close-round-button" (click)="showEditFlight = false">❌</button>
+                <h3 class="pop-up-box-title">Modifica i dati del volo</h3>
+                
+                <table>
+                    <tr>
+                        <td>Partenza</td> <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td> 
+                        <td>
+                            <p>{{flightToEdit.departure.airportName}}</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Destinazione</td> <td></td> 
+                        <td>
+                            <p>{{flightToEdit.destination.airportName}}</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Aereo</td> <td></td> 
+                        <td>
+                            <p>{{flightToEdit.aircraft.producer}} {{flightToEdit.aircraft.modelName}}</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Orario decollo</td> <td></td> 
+                        <td>
+                        <input type="datetime-local" #editDepartureDate placeholder="Seleziona orario decollo" [value]="flightToEdit.departureDate | date:'yyyy-MM-ddTHH:mm'" >
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Orario arrivo</td> <td></td> 
+                        <td>
+                        <input type="datetime-local" #editDestinationDate placeholder="Seleziona orario arrivo" [value]="flightToEdit.destinationDate | date:'yyyy-MM-ddTHH:mm'">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Aggiorna prezzi posti liberi</td>
+                        <td>
+                        <td><p>
+                            <label for="economyPriceUpdater">Economy</label>
+                            <input id="economyPriceUpdater" type="number" placeholder="€" #economyPriceUpdater min=0> &nbsp;&nbsp;
+                            <label for="businessPriceUpdater">Business</label>
+                            <input id="businessPriceUpdater" type="number" placeholder="€" #businessPriceUpdater min=0>&nbsp;&nbsp;
+                            <label for="firstClassPriceUpdater">Prima classe</label>
+                            <input id="firstClassPriceUpdater" type="number" placeholder="€" #firstClassPriceUpdater min=0>
+                        </p></td>
+                    </tr>
+                    <!-- logica degli extraa disposizione -->
+                    <tr *ngFor="let extra of createRange(this.flightToEdit.extrasAvailable.length); let i=index;">
+                        <td><span *ngIf="i==0">Extra a disposizione</span></td> 
+                        <td>
+                            <button *ngIf="i!=0" class="pop-up-box-button" (click)="this.flightToEdit.extrasAvailable.splice(i, 1)" style="background-color: rgb(250, 193, 193); border: 1px solid rgb(88, 0, 0);"><b>&nbsp;-&nbsp;</b></button>&nbsp;
+                        </td>
+                        <td>
+                            <input type="text" [(ngModel)]="this.flightToEdit.extrasAvailable[i].name" placeholder="descrizione">
+                            &nbsp;
+                            <input type="number" [(ngModel)]="this.flightToEdit.extrasAvailable[i].price" placeholder="prezzo" min="0" max="1000">&nbsp;€
+                            &nbsp;
+                            <span *ngIf="i==this.flightToEdit.extrasAvailable.length-1">
+                                <button (click)="addExtraFlight(flightToEdit)" class="pop-up-box-button" style="background-color: rgb(193, 250, 205); border: 1px solid rgb(0, 88, 19);">✚</button>
+                            </span>
+                        </td>
+                    </tr>
+                </table>
+
+                <button class="pop-up-box-confirm" 
+                (click)="updateFlight(editDepartureDate.value, editDestinationDate.value, +economyPriceUpdater.value, +businessPriceUpdater.value, +firstClassPriceUpdater.value)"> 
+                    Salva modifiche 
+                </button>
+
+                <!-- seats section -->
+                <div class="seats-section">
+                    <div class="seats-column">
+                        <h4 class="seats-column-title">Economy</h4>
+                        <div *ngFor="let seat of flightToEdit.aircraft.economySeats" 
+                        [ngClass]="{
+                            'free-seat': seat.passenger == null,
+                            'occupy-seat': seat.passenger != null
+                        }">
+                            {{seat.seatNumber}} <span *ngIf="seat.passenger">👤</span> <br> {{seat.seatPrice}} €
+                        </div>
+                    </div>
+
+                    <div class="seats-column">
+                        <h4 class="seats-column-title">Business</h4>
+                        <div *ngFor="let seat of flightToEdit.aircraft.businessSeats" 
+                        [ngClass]="{
+                            'free-seat': seat.passenger == null,
+                            'occupy-seat': seat.passenger != null
+                        }">
+                            {{seat.seatNumber}} <span *ngIf="seat.passenger">👤</span> <br> {{seat.seatPrice}} €
+                        </div>
+                    </div>
+
+                    <div class="seats-column">
+                        <h4 class="seats-column-title">Prima classe</h4>
+                        <div *ngFor="let seat of flightToEdit.aircraft.firstClassSeats" 
+                        [ngClass]="{
+                            'free-seat': seat.passenger == null,
+                            'occupy-seat': seat.passenger != null
+                        }">
+                            {{seat.seatNumber}} <span *ngIf="seat.passenger">👤</span> <br> {{seat.seatPrice}} €
+                        </div>
+                    </div>                  
+                    
+
+                </div>
+
+                
+
+
                 
             </div>
         </div>
@@ -149,10 +264,17 @@
                     <tr><td>Aerero </td> <td>&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>{{ flight.aircraft.modelName }}</td></tr>
                     </table>
                     
-                    <button class="edit" (click)="this.router.navigate(['airline/flights/' + flight._id])">✏️</button>
+                    <button 
+                        class="edit" 
+                        *ngIf="flight.departureDate && daysDateDiffFromNow(flight.departureDate) >= 2"
+                        (click)="showEditFlight = true; flightToEdit=flight; flightToEdit.departure = route.departure; flightToEdit.destination = route.destination">
+                        ✏️
+                    </button>
                     
                 </div>
             </div>
         </div>
     </div>
+
+    
 </div>

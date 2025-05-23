@@ -34,6 +34,8 @@ export class FlightManagementComponent {
   fromDate: Date;
   filteredRoutes!: Route[];
   showAddFlight: boolean = false;
+  showEditFlight: boolean = false;
+  flightToEdit!: Flight;
   myAircrafts!: Observable<Aircraft[]>;
   extras: Extra[] = [{name: '', price: NaN},{name: '', price: NaN}];
 
@@ -141,6 +143,52 @@ export class FlightManagementComponent {
       }
     })
     
+  }
+
+  daysDateDiffFromNow(date: string | Date): number {
+    const now = new Date();
+    const target = new Date(date);
+    return Math.floor((target.getTime() - now.getTime()) / (1000 * 60 * 60 * 24));
+  }
+
+  addExtraFlight(flight: Flight) {
+    flight.extrasAvailable.push({name: '', price: NaN});
+  }
+
+  updateFlight(departureDate: string, destinationDate: string, economyPrice: number, businessPrice: number, firstClassPrice: number) {
+    var body: {
+      flightId: string,
+      departureDate: Date,
+      destinationDate: Date,
+      extras: { name: string; price: number; }[],
+      economyPrice?: number,
+      businessPrice?: number,
+      firstClassPrice?: number
+    } = {
+      flightId: this.flightToEdit._id,
+      departureDate: new Date(departureDate),
+      destinationDate: new Date(destinationDate),
+      extras: this.flightToEdit.extrasAvailable
+    };
+    if (economyPrice > 0)
+      body.economyPrice = economyPrice;
+    if (businessPrice > 0)
+      body.businessPrice = businessPrice;
+    if (firstClassPrice > 0)
+      body.firstClassPrice = firstClassPrice;
+    
+    this.http.post(this.us.url + '/updateFlight', body, this.us.createHeaders()).subscribe({
+      next: (d) => {
+        alert('Volo aggiornato con successo');
+        this.showEditFlight = false;
+        this.updatedMyRoutes();
+      },
+      error: (error) => {
+        alert("Errore nell'aggiornamento del volo " + error.error.errormessage);
+        console.log(error);
+      }
+    })
+
   }
 
 

@@ -11,7 +11,6 @@ import { SignupComponent } from './signup/signup.component';
 import { AircraftManagementComponent } from './aircraft-management/aircraft-management.component';
 import { FlightManagementComponent } from './flight-management/flight-management.component';
 import { StatisticsComponent } from './statistics/statistics.component';
-import { FlightManagementDetailComponent } from './flight-management-detail/flight-management-detail.component';
 
 export const routes: Routes = [
     { path: '', title: 'Home', component: FlightSearch },
@@ -22,7 +21,6 @@ export const routes: Routes = [
     { path: 'airline', title: 'Dashboard', component: AirlineComponent, canActivate: [airlineGuard] },
     { path: 'airline/aircrafts', title: 'Gestione flotta', component: AircraftManagementComponent, canActivate: [airlineGuard] },
     { path: 'airline/flights', title: 'Gestione voli', component: FlightManagementComponent, canActivate: [airlineGuard] },
-    { path: 'airline/flights/:id', component: FlightManagementDetailComponent, canActivate: [airlineGuard]},
     { path: 'airline/statistics', title: 'Statistiche', component: StatisticsComponent, canActivate: [airlineGuard] },
     { path: 'admin', title: 'Admin dashboard', component: AdminComponent, canActivate: [adminGuard] },
     { path: '**', redirectTo: '', pathMatch: 'full' }

@@ -29,7 +29,8 @@
                 [ngClass]="{
                     'free-seat': seat.passenger == null,
                     'my-seat': seat.passenger == myId,
-                    'occupy-seat': seat.passenger != null && seat.passenger != myId                }" (click)="bookSeat(seat._id, seat.seatNumber, seat.seatPrice)">
+                    'occupy-seat': seat.passenger != null && seat.passenger != myId
+                }" (click)="bookSeat(seat._id, seat.seatNumber, seat.seatPrice)">
                 {{seat.seatNumber}}, {{seat.seatPrice}} €
             </div>
         </div> 

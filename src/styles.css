@@ -70,10 +70,19 @@
     text-align: center;
 }
 
-.pop-up-box select, input {
+.pop-up-box p {
+    padding: 0.2rem;
+}
+
+.pop-up-box select, input{
     padding: 0.2rem;
     font-size: medium;
     margin:0.2rem;
+}
+
+.pop-up-box input[type=number] {
+    text-align: right;
+    width: 5rem;
 }
 
 .pop-up-box-button {
@@ -114,4 +123,53 @@
     margin: 0;
     /* border: 2px solid green; */
 
+}
+
+
+
+
+
+
+
+
+
+
+
+
+/* Style for the seats-section container */
+.seats-section {
+    margin-top: 0.5rem;
+    padding: 0.5rem;
+    /* border: 1px solid #ccc; */
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    /* box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); */
+    display: flex;
+    gap: 5rem;
+    justify-content: center;
+}
+
+/* Style for seat category headers (e.g., Economy, Business, First Class) */
+.seats-column-title {
+    margin-top: 1rem;
+    font-size: 1.2rem;
+    color: #007bff;
+    text-transform: uppercase;
+    /* border-bottom: 2px solid #007bff; */
+    display: inline-block;
+    padding-bottom: 0.2rem;
+    width: 100%;
+    text-align: center;
+    height: 2rem;
+}
+
+/* Style for seat containers */
+.seats-column {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;    
+    gap: 0.8rem;
+    margin-top: 1rem;
+    width: 27%;
+    height:fit-content;
 }

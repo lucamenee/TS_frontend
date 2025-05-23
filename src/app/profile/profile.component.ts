@@ -25,7 +25,7 @@ interface myFlight {
   selector: 'app-profile',
   imports: [CommonModule],
   templateUrl: './profile.component.html',
-  styleUrls: ['./profile.component.css']
+  styleUrls: ['./profile.component.css', './../../styles.css']
 })
 export class ProfileComponent implements OnInit {
   public mySeats: myFlight[] = [];
