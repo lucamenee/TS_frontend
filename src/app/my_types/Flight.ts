@@ -7,6 +7,7 @@ export interface Flight {
     destination: Airport,
     departureDate: string,
     destinationDate: string,
-    aircraft: Aircraft
+    aircraft: Aircraft,
+    extrasAvailable: {name: string, price: number}[],
 }
 

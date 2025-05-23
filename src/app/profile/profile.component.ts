@@ -45,13 +45,7 @@ export class ProfileComponent implements OnInit {
   }
 
   updateMyFlight() {
-    this.http.get(this.us.url + '/myFlights',  {
-      headers: new HttpHeaders({
-        Authorization: 'Bearer ' + this.us.get_token(),
-        'cache-control': 'no-cache',
-        'Content-Type': 'application/json',
-      })
-    }).subscribe({
+    this.http.get(this.us.url + '/myFlights', this.us.createHeaders()).subscribe({
       next: (data: any) => {
         this.mySeats = data;
       }, 
@@ -73,13 +67,7 @@ export class ProfileComponent implements OnInit {
     this.http.post(this.us.url + '/updatePassword', {
       oldPsw: oldPsw,
       newPsw: newPsw,
-    }, {
-      headers: new HttpHeaders({
-        Authorization: 'Bearer ' + this.us.get_token(),
-        'cache-control': 'no-cache',
-        'Content-Type': 'application/json',
-      })
-    }).subscribe({
+    }, this.us.createHeaders()).subscribe({
       next: () => {
         console.log('password updated successfully');
         this.inputOldPsw.nativeElement.value = '';

@@ -4,7 +4,6 @@ import { CommonModule, registerLocaleData } from '@angular/common';
 import { HttpClient, HttpHandler, HttpHeaders, HttpParams } from '@angular/common/http';
 import localeIt from '@angular/common/locales/it';
 
-
 import { UserHttpService } from '../user-http.service';
 
 import { Flight } from '../my_types/Flight'
@@ -65,13 +64,7 @@ export class FlightDetail implements OnInit {
         flightId: this.flightId,
         seats: [id],
         passengerName: passengerName
-      }, {
-        headers: new HttpHeaders({
-          Authorization: 'Bearer ' + this.us.get_token(),
-          'cache-control': 'no-cache',
-          'Content-Type':  'application/json',
-        })
-      }).subscribe({
+      }, this.us.createHeaders()).subscribe({
         next: () => {
           alert('Prenotazione effettuata con successo');
           window.location.reload();

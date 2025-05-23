@@ -15,6 +15,12 @@ h2 {
     border-radius: 8px;
 }
 
+.no-flight {
+    text-align: center;
+    width: 50%;
+    margin: auto;
+}
+
 .route h4 {
     cursor: pointer;
     -webkit-touch-callout: none;
@@ -77,6 +83,10 @@ h2 {
     margin-bottom: 0.3rem;
 }
 
+.search-routes select {
+    width: 27rem;
+}
+
 .search-routes select,
 .search-routes input[type="date"] {
     padding: 0.4rem 0.6rem;
@@ -103,5 +113,17 @@ h2 {
 .search-routes button:hover {
     background: #0056b3;
 }
+
+.add-flight-button {
+    padding: 0.5rem;
+    background-color: lightsteelblue;
+    border: 1px solid lightgray;
+    border-radius: 8px;
+    cursor: pointer;
+    float: right;
+}
+
+
+
 
 

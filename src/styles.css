@@ -6,3 +6,112 @@
     box-sizing: border-box; /* Ensure consistent box model */
 }
 
+.close-round-button {
+    position: absolute;
+    right: 1rem;
+    top: 0.7rem;
+    float: right;
+    border-radius: 100%;
+    margin-right: 0.2rem;
+    margin-top: 0.2rem;
+    padding: 0.2rem;
+    cursor: pointer;
+    background-color: rgb(248, 228, 228);
+    border: 1px solid palevioletred;
+    font-size: medium;
+    transition: all 250ms;
+    
+}
+
+.close-round-button:hover {
+    background-color: rgb(255, 188, 183);
+    color: white;
+    border: 2px solid red;
+    padding: 0.4rem;
+    margin-right: 0;
+    margin-top: 0;
+}
+
+.pop-up-box-overlay {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 2000;
+    background: rgba(255,255,255,0.3);
+    -webkit-backdrop-filter: blur(6px);
+    backdrop-filter: blur(6px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.pop-up-box {
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+    padding: 1.5rem 2rem 2rem 2rem;
+    width: 70%;
+    max-height: 90vh;
+    overflow-y: auto;
+    position: relative;
+    z-index: 2100;
+    animation: popIn 0.25s cubic-bezier(.4,0,.2,1);
+}
+
+@keyframes popIn {
+    from { transform: scale(0.95); opacity: 0; }
+    to   { transform: scale(1); opacity: 1; }
+}
+
+.pop-up-box-title {
+    color: rgb(27, 27, 78);
+    margin-bottom: 0.7rem;
+    text-align: center;
+}
+
+.pop-up-box select, input {
+    padding: 0.2rem;
+    font-size: medium;
+    margin:0.2rem;
+}
+
+.pop-up-box-button {
+    padding: 0.1rem 0.2rem;
+    background-color: rgb(218, 228, 230);
+    border: 1px solid lightgray;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 250ms;
+    margin: 0.1rem;
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+    -khtml-user-select: none; /* Konqueror HTML */
+    -moz-user-select: none; /* Old versions of Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none; /* Non-prefixed version, currently supported by Chrome, Edge, Opera and Firefox */
+}
+
+.pop-up-box-button:hover {
+    padding: 0.2rem 0.3rem;
+    margin: 0;
+}
+
+.pop-up-box-confirm {
+    margin-top: 0.7rem;
+    padding: 0.3rem;
+    border: 1px solid green;
+    border-radius: 8px;
+    background-color: lightgreen;
+    margin: 0.1rem;
+    transition: all 150ms;
+    cursor: pointer;
+}
+
+.pop-up-box-confirm:hover {
+    background-color: lime;
+    padding: 0.4rem;
+    margin: 0;
+    /* border: 2px solid green; */
+
+}

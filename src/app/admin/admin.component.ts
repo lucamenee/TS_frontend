@@ -46,13 +46,7 @@ export class AdminComponent {
   }
 
   getUsers() {
-    this.users = this.http.get<User[]>(this.us.url + '/users', {
-      headers: new HttpHeaders({
-        Authorization: 'Bearer ' + this.us.get_token(),
-        'cache-control': 'no-cache',
-        'Content-Type':  'application/json',
-      })
-    })
+    this.users = this.http.get<User[]>(this.us.url + '/users', this.us.createHeaders())
   }
 
   getNations() {
@@ -116,13 +110,7 @@ export class AdminComponent {
       city: city,
       airportName: airportName,
       nation: nation,
-    }, {
-      headers: new HttpHeaders({
-        Authorization: 'Bearer ' + this.us.get_token(),
-        'cache-control': 'no-cache',
-        'Content-Type':  'application/json',
-      })
-    }).subscribe({
+    }, this.us.createHeaders()).subscribe({
       next: (d) => {
         console.log('Airport inserted!');
         this.IATAText = '';
@@ -142,13 +130,7 @@ export class AdminComponent {
   createNation(nationName: string) {
     this.http.post(this.us.url + '/nation', {
       nationName: nationName,
-    }, {
-      headers: new HttpHeaders({
-        Authorization: 'Bearer ' + this.us.get_token(),
-        'cache-control': 'no-cache',
-        'Content-Type':  'application/json',
-      })
-    }).subscribe({
+    }, this.us.createHeaders()).subscribe({
       next: (d) => {
         console.log('Nation inserted!');
         this.nationNameText = '';

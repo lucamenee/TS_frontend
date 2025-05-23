@@ -1,11 +1,100 @@
 <h2>Gestione voli</h2>
 
 <div>
-    <div class="add-route">
-        <!-- adding new flight section -->
+    <div *ngIf="showAddFlight" class="pop-up-box-overlay">
+
+        <div class="pop-up-box">
+            <!-- adding new flight section -->
+            <!-- <h4 (click)="showAddFlight = !showAddFlight" class="add-route-title">
+                <span *ngIf="!showAddFlight">⯈</span>
+                <span *ngIf="showAddFlight">⯆</span>
+                
+            </h4> -->
+            
+            <div class="add-route-form">
+                <button class="close-round-button" (click)="showAddFlight = false">❌</button>
+                <h3 class="pop-up-box-title">Aggiungi nuovo volo</h3>
+                
+                <table>
+                    <tr>
+                        <td>Partenza</td> <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td> 
+                        <td>
+                            <select #addDeparture title="addDeparture">
+                            <option value="" selected disabled hidden>Seleziona partenza</option>
+                            <option *ngFor="let airport of airports | async" [value]="airport._id">
+                                {{ airport.city }}, {{ airport.airportName }} - {{ airport.IATA }}
+                            </option>
+                        </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Destinazione</td> <td></td> 
+                        <td>
+                            <select #addDestination title="addDestination">
+                            <option value="" selected disabled hidden>Seleziona destinazione</option>
+                            <option *ngFor="let airport of airports | async" [value]="airport._id">
+                                {{ airport.city }}, {{ airport.airportName }} - {{ airport.IATA }}
+                            </option>
+                        </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Aereo</td> <td></td> 
+                        <td>
+                            <select #addAircraft title="addAircraft">
+                            <option value="" selected disabled hidden>Seleziona aereo</option>
+                            <option *ngFor="let aicraft of myAircrafts | async" [value]="aicraft._id">
+                                {{aicraft.producer}} {{aicraft.modelName}}
+                            </option>
+                        </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Orario decollo</td> <td></td> 
+                        <td>
+                        <input type="datetime-local" #addDepartureDate placeholder="Seleziona orario decollo">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Orario arrivo</td> <td></td> 
+                        <td>
+                        <input type="datetime-local" #addDestinationDate placeholder="Seleziona orario arrivo">
+                        </td>
+                    </tr>
+                    <!-- logica degli extraa disposizione -->
+                    <tr *ngFor="let extra of createRange(extras.length); let i=index;">
+                        <td><span *ngIf="i==0">Extra a disposizione</span></td> 
+                        <td>
+                            <button *ngIf="i!=0" class="pop-up-box-button" (click)="extras.splice(i, 1)" style="background-color: rgb(250, 193, 193); border: 1px solid rgb(88, 0, 0);"><b>&nbsp;-&nbsp;</b></button>&nbsp;
+                        </td>
+                        <td>
+                            <input type="text" [(ngModel)]="extras[i].name" placeholder="descrizione">
+                            &nbsp;
+                            <input type="number" [(ngModel)]="extras[i].price" placeholder="prezzo" min="0" max="10000">
+                            &nbsp;
+                            <span *ngIf="i==extras.length-1">
+                                <button (click)="addExtra()" class="pop-up-box-button" style="background-color: rgb(193, 250, 205); border: 1px solid rgb(0, 88, 19);">✚</button>
+                            </span>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <button class="pop-up-box-confirm" 
+                        (click)="addFlight(addDeparture.value, addDestination.value, addAircraft.value, addDepartureDate.value, addDestinationDate.value)"> 
+                            Conferma 
+                        </button>
+                    </tr>
+                </table>
+                
+            </div>
+        </div>
+        
     </div>
+
+    <button *ngIf="!showAddFlight" (click)="showAddFlight=true" class="add-flight-button">Aggiungi nuovo volo</button>
+    <br><br>
     
-    <div class="search-routes">
+    <div class="search-routes" >
         <div>
             <label for="departure">Partenza</label>
             <select title="departure" #departure name="departure">
@@ -34,7 +123,12 @@
 
     </div>
 
-    <div class="routes">
+    <div class="routes" >
+
+        <div *ngIf="this.filteredRoutes.length==0">
+            <h4 class="no-flight">Nessuna rotta trovata per i ceriteri di ricerca</h4>
+        </div>
+
         <div class="route" *ngFor="let route of filteredRoutes">
             <h4 (click)="route.show=!route.show">
                 <span *ngIf="!route.show"> ⯈ </span>

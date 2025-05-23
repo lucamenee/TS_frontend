@@ -67,6 +67,16 @@ export class UserHttpService {
         
     }
 
+    createHeaders() {
+        return {
+            headers: new HttpHeaders({
+                'cache-control': 'no-cache',
+                'Content-Type':  'application/json',
+                Authorization: 'Bearer ' + this.get_token()
+            })
+        };
+    }
+
     login(username: string, password: string): Observable<any> {
         console.log('Login: ' + username + ' ' + password );
         const options = {
@@ -105,16 +115,6 @@ export class UserHttpService {
 
 
     register(username: string, name: string, password: string, email: string, role: string, surname: string): Observable<any> {
-        const options = {
-            headers: new HttpHeaders({
-                'cache-control': 'no-cache',
-                'Content-Type':  'application/json',
-                Authorization: 'Bearer ' + this.get_token()
-            })
-        };
-
-        console.log(role)
-
         return this.http.post(this.url + '/register', {
             'name': name,
             'username': username,
@@ -122,7 +122,7 @@ export class UserHttpService {
             'password': password,
             'email': email,
             'role': role,
-        }, options);
+        }, this.createHeaders());
     }
 
     get_token(): string {

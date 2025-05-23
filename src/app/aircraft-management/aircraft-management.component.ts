@@ -23,13 +23,7 @@ export class AircraftManagementComponent {
   }
 
   updateAircrafts() {
-    this.aircrafts = this.http.get<Aircraft[]>(this.us.url + '/aircrafts', {
-      headers: new HttpHeaders({
-        Authorization: 'Bearer ' + this.us.get_token(),
-        'cache-control': 'no-cache',
-        'Content-Type':  'application/json',
-      })
-    })
+    this.aircrafts = this.http.get<Aircraft[]>(this.us.url + '/aircrafts', this.us.createHeaders())
   }
 
   addSeat(aircraft: string, number: string, price: number, seatClass: string) {
@@ -38,13 +32,7 @@ export class AircraftManagementComponent {
       price: price,
       number: number,
       seatClass: seatClass
-    }, {
-      headers: new HttpHeaders({
-        Authorization: 'Bearer ' + this.us.get_token(),
-        'cache-control': 'no-cache',
-        'Content-Type':  'application/json',
-      })
-    }).subscribe({
+    }, this.us.createHeaders()).subscribe({
       next: (d) => {
         console.log('aggiunto');
         alert('posto aggiunto');
@@ -63,13 +51,7 @@ export class AircraftManagementComponent {
       seatId: seatId,
       newPrice: newPrice,
       seatClass: seatClass
-    }, {
-      headers: new HttpHeaders({
-        Authorization: 'Bearer ' + this.us.get_token(),
-        'cache-control': 'no-cache',
-        'Content-Type':  'application/json',
-      })
-    }).subscribe({
+    }, this.us.createHeaders()).subscribe({
       next: () => {
         this.updateAircrafts(); // Refresh the list
       },
@@ -165,13 +147,7 @@ export class AircraftManagementComponent {
       seatsE: seatsE,
       seatsB: seatsB,
       seatsF: seatsF,
-    }, {
-      headers: new HttpHeaders({
-        Authorization: 'Bearer ' + this.us.get_token(),
-        'cache-control': 'no-cache',
-        'Content-Type':  'application/json',
-      })
-    }).subscribe({
+    }, this.us.createHeaders()).subscribe({
       next: (d) => {
         console.log('aircraft created');
         this.updateAircrafts();
