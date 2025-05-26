@@ -10,6 +10,9 @@ import { FormsModule } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { Aircraft } from '../my_types/Aircraft';
 import { error } from 'node:console';
+import { Seat } from '../my_types/Seat';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatButtonModule } from '@angular/material/button';
 
 
 interface Route {
@@ -24,7 +27,7 @@ interface Extra {name: string, price: number}
 
 @Component({
   selector: 'app-flight-management',
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, MatTooltipModule],
   templateUrl: './flight-management.component.html',
   styleUrls: ['./../../styles.css', './flight-management.component.css']
 })
@@ -214,6 +217,104 @@ export class FlightManagementComponent {
         }
       })
   }
+
+  seatsBooked(flight: Flight): number {
+    let result: number = 0;
+    for(const seat of flight.aircraft.economySeats) {
+      if (seat.passenger)  result++;
+    }
+    for(const seat of flight.aircraft.businessSeats) {
+      if (seat.passenger) result++;
+    }
+    for(const seat of flight.aircraft.firstClassSeats) {
+      if (seat.passenger) result++;
+    }
+
+    return result;
+  }
+
+  totalSeats(flight: Flight): number {
+    let result: number = 0;
+    result += flight.aircraft.economySeats.length;
+    result += flight.aircraft.businessSeats.length;
+    result += flight.aircraft.firstClassSeats.length;
+
+    return result;
+  }
+
+  totalPossibleIncome(flight: Flight): number {
+    let result: number = 0;
+
+    function calcIncome (seats: Seat[]) : number {
+      let result = 0;
+      for(let seat of seats) {
+        result += seat.seatPrice;
+        for (let extra of seat.extras) {
+          result += extra.price;
+        }
+      }
+      return result;
+    }
+
+    result += calcIncome(flight.aircraft.economySeats);
+    result += calcIncome(flight.aircraft.businessSeats);
+    result += calcIncome(flight.aircraft.firstClassSeats);
+
+    return result;
+  }
+
+  calcExtraPrice(seat: Seat): number {
+    let result: number = 0;
+    for (const extra of seat.extras) {
+      result += extra.price;
+    }
+    return result;
+  }
+ 
+
+  incomeSeatsBooked(flight: Flight): number {
+    let result: number = 0;
+
+    function calcIncome (seats: Seat[]) : number {
+      let result = 0;
+      for(let seat of seats) {
+        if (seat.passenger) {
+          result += seat.seatPrice;
+          for (let extra of seat.extras) {
+            result += extra.price;
+          }
+        }
+      }
+      return result;
+    }
+
+    result += calcIncome(flight.aircraft.economySeats);
+    result += calcIncome(flight.aircraft.businessSeats);
+    result += calcIncome(flight.aircraft.firstClassSeats);
+
+    return result;
+  }
+
+  seatsEmpty(flight: Flight): number {
+    let result: number = this.totalSeats(flight);
+    result += this.seatsBooked(flight);
+
+    return result;
+  }
+
+  incomeSeatsEmpty(flight: Flight): number {
+    let result = this.totalPossibleIncome(flight);
+    result -= this.incomeSeatsBooked(flight);
+    return result;
+  }
+
+  getSeatTooltip(seat: any): string {
+  let tooltip = `Passeggero: ${seat.passenger?.name || seat.passengerName}`;
+  if (seat.extras && seat.extras.length > 0) {
+    tooltip += '\nExtra: ' + seat.extras.map((e: any) => e.name).join(', ');
+  }
+  return tooltip;
+}
 
 
 }

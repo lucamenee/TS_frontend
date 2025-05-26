@@ -3,7 +3,10 @@ export interface Seat {
     passenger: string,
     seatPrice: number,
     passengerName: string,
-    extras: any[],
+    extras: [{
+        price: number,
+        name: string,
+    }],
     _id: string,
     editing: boolean,
 }

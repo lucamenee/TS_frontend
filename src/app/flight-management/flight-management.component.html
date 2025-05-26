@@ -158,6 +158,18 @@
                 (click)="updateFlight(editDepartureDate.value, editDestinationDate.value, +economyPriceUpdater.value, +businessPriceUpdater.value, +firstClassPriceUpdater.value)"> 
                     Salva modifiche 
                 </button>
+                <br><br>
+                <div class="stats-summary">
+                    <table class="summary-table">
+                        <tr><th></th><th>n° posti</th><th>incasso</th></tr>
+                        <tr>
+                            <td>Posti prenotati</td> <td class="number-td">{{seatsBooked(flightToEdit)}}</td> <td class="number-td">{{incomeSeatsBooked(flightToEdit)}} €</td>
+                        </tr>
+                        <tr>
+                            <td>Posti non prenotati</td> <td class="number-td">{{seatsEmpty(flightToEdit)}}</td> <td class="number-td">{{incomeSeatsEmpty(flightToEdit)}} €</td>
+                        </tr>
+                    </table>
+                </div>
 
                 <!-- seats section -->
                 <div class="seats-section">
@@ -167,19 +179,32 @@
                         [ngClass]="{
                             'free-seat': seat.passenger == null,
                             'occupy-seat': seat.passenger != null
-                        }">
-                            {{seat.seatNumber}} <span *ngIf="seat.passenger">👤</span> <br> {{seat.seatPrice}} €
+                        }"
+                        [matTooltip]="seat.passenger ? getSeatTooltip(seat) : ''"
+                        [matTooltipDisabled]="!seat.passenger"
+                        matTooltipClass="mat-tooltip"
+                        >
+                            {{seat.seatNumber}} <span *ngIf="seat.passenger">👤</span> <br> {{seat.seatPrice + calcExtraPrice(seat)}} €
                         </div>
                     </div>
 
                     <div class="seats-column">
                         <h4 class="seats-column-title">Business</h4>
-                        <div *ngFor="let seat of flightToEdit.aircraft.businessSeats" 
-                        [ngClass]="{
+                        <div
+                          *ngFor="let seat of flightToEdit.aircraft.businessSeats"
+                          [ngClass]="{
                             'free-seat': seat.passenger == null,
                             'occupy-seat': seat.passenger != null
-                        }">
-                            {{seat.seatNumber}} <span *ngIf="seat.passenger">👤</span> <br> {{seat.seatPrice}} €
+                          }"
+                          [matTooltip]="seat.passenger ? getSeatTooltip(seat) : ''"
+                          [matTooltipDisabled]="!seat.passenger"
+                          matTooltipClass="mat-tooltip"
+                          
+                        >
+                          {{seat.seatNumber}}
+                          <span *ngIf="seat.passenger">👤</span>
+                          <br>
+                          {{seat.seatPrice + calcExtraPrice(seat)}} €
                         </div>
                     </div>
 
@@ -189,18 +214,17 @@
                         [ngClass]="{
                             'free-seat': seat.passenger == null,
                             'occupy-seat': seat.passenger != null
-                        }">
-                            {{seat.seatNumber}} <span *ngIf="seat.passenger">👤</span> <br> {{seat.seatPrice}} €
+                        }"
+                        [matTooltip]="seat.passenger ? getSeatTooltip(seat) : ''"
+                        [matTooltipDisabled]="!seat.passenger"
+                        matTooltipClass="mat-tooltip"
+                        >
+                            {{seat.seatNumber}} <span *ngIf="seat.passenger">👤</span> <br> {{seat.seatPrice + calcExtraPrice(seat)}} €
                         </div>
                     </div>                  
                     
 
-                </div>
-
-                
-
-
-                
+                </div>                
             </div>
         </div>
         
