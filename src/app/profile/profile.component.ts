@@ -1,4 +1,4 @@
-import { Component, OnInit, ɵsetAlternateWeakRefImpl } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CommonModule, registerLocaleData } from '@angular/common';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
@@ -9,7 +9,13 @@ import { UserHttpService } from '../user-http.service';
 
 import { Airport } from '../my_types/Airport';
 import { Seat } from '../my_types/Seat';
+import { FormsModule } from '@angular/forms';
 
+
+interface Extra{
+  name: string,
+  price: number
+}
 
 interface myFlight {
   airline: {_id: string, name: string},
@@ -19,11 +25,13 @@ interface myFlight {
   destinationDate: Date,
   flightId: string,
   seats: [Seat]
+  extrasAvailable: [Extra]
 }
+
 
 @Component({
   selector: 'app-profile',
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.css', './../../styles.css']
 })
@@ -33,7 +41,10 @@ export class ProfileComponent implements OnInit {
   public showPasswordUpdater: boolean = false;
   @ViewChild('oldPsw') inputOldPsw : any; 
   @ViewChild('newPsw') inputNewPsw : any; 
-
+  showEditSeat: boolean = false;
+  seatToEdit!: Seat;
+  extrasAvailable!: Extra[];
+  flightInvolved!: myFlight;
 
   constructor(public us: UserHttpService, private router: Router, private http: HttpClient) {
 
@@ -114,10 +125,65 @@ export class ProfileComponent implements OnInit {
     })
   }
 
-
   isAfterToday(date: Date): boolean {
     return new Date(date).getTime() > new Date().getTime();
   }
+
+  
+  createRange(number: any) {
+    var items: number[] = [];
+    for(var i = 1; i <= number; i++){
+      items.push(i);
+    }
+    return items;
+  }
+
+  hasExtra(name: string): boolean {
+    for (let extra of this.seatToEdit.extras) 
+      if (extra.name == name) return true
+    return false;
+  }
+
+  removeExtra(extraToRemove: Extra) {
+    for (let extra of this.seatToEdit.extras) 
+      if (extra.name == extraToRemove.name) 
+        this.seatToEdit.extras.splice(this.seatToEdit.extras.indexOf(extraToRemove), 1);
+  }
+
+  startEditing(flight: myFlight, seat: Seat) {
+    this.showEditSeat = true; 
+    this.seatToEdit = seat; 
+    this.extrasAvailable = flight.extrasAvailable;
+    this.flightInvolved = flight;
+  }
+
+  confirmEdit() {
+    this.http.post(this.us.url + '/newExtras', {
+      flightId: this.flightInvolved.flightId,
+      seatId: this.seatToEdit._id,
+      newExtras: this.seatToEdit.extras
+    }, this.us.createHeaders()).subscribe({
+      next: (d) => {
+        alert('Dati aggiornati con successo');
+        this.showEditSeat = false;
+        this.updateMyFlight();
+      },
+      error: (error) => {
+        alert("Errore nell'aggiornamento dei dati del biglietto: " + error.error.errormessage);
+        this.showEditSeat = false;
+        console.log(error)
+      }
+    })
+  }
+
+  sumExtra(seat: Seat): number {
+    let result = 0;
+    for(const extra of seat.extras) {
+      result += extra.price;
+    }
+    return result
+  }
+
 
   
 

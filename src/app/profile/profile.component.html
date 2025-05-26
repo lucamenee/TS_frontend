@@ -54,13 +54,14 @@
                     <div *ngFor="let seat of flight.seats" class="seat">
                         <div class="seat-info">
                             <p>
-                                {{ seat.seatNumber }}, {{ seat.seatPrice }} € 
+                                <i>{{seat.class}}</i> - {{ seat.seatNumber }}, {{ seat.seatPrice + sumExtra(seat)}} € 
                             </p>
                             <p>
                                 {{ seat.passengerName }}
                             </p>
                         </div>
                         <button *ngIf="isAfterToday(flight.departureDate)" class="delete-button" (click)="deleteBooking(flight.flightId, seat._id)">🗑️</button>
+                        <button *ngIf="isAfterToday(flight.departureDate)" class="delete-button" (click)="startEditing(flight, seat)">✏️</button>
                     </div>
                 </div>
             </div>
@@ -70,5 +71,29 @@
 
     </div>
 
+
+</div>
+
+
+<div class="pop-up-box-overlay" *ngIf="showEditSeat">
+    <div class="pop-up-box">
+        <h4 class="pop-up-box-title">Modifica dati biglietto</h4>
+        <button class="close-round-button" (click)="showEditSeat=false;">❌</button>
+        <table>
+            <tr><td>Classe</td> <td>{{seatToEdit.class}}</td></tr>
+            <tr><td>Prezzo</td> <td>{{seatToEdit.seatPrice}} €</td></tr>
+            <tr><td>Nominativo</td> <td>{{seatToEdit.passengerName}}</td></tr>
+            <tr *ngFor="let extra of createRange(this.extrasAvailable.length); let i=index;">
+                        <td><span *ngIf="i==0">Extra a disposizione</span></td> 
+                        <td>{{extrasAvailable[i].name}} </td><td>{{extrasAvailable[i].price}} €</td>
+                        <td>
+                            <button *ngIf="hasExtra(extrasAvailable[i].name)" class="pop-up-box-button-remove" (click)="removeExtra(extrasAvailable[i])">&nbsp;-&nbsp;</button>
+                            <button *ngIf="!hasExtra(extrasAvailable[i].name)" class="pop-up-box-button-add" (click)="seatToEdit.extras.push(extrasAvailable[i])">+</button>
+                        </td>
+                        
+                    </tr>
+        </table>
+        <button class="pop-up-box-confirm" (click)="confirmEdit()">Conferma modifiche</button>
+    </div>
 
 </div>

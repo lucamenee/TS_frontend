@@ -100,14 +100,15 @@
     width: 8rem;
 }
 
-.pop-up-box-button {
-    padding: 0.1rem 0.2rem;
+.pop-up-box-button, .pop-up-box-button-remove, .pop-up-box-button-add {
+    width: 1.2rem;
+    height: 1.2rem;
     background-color: rgb(218, 228, 230);
     border: 1px solid lightgray;
     border-radius: 4px;
     cursor: pointer;
     transition: all 250ms;
-    margin: 0.1rem;
+    margin-left: 0.1rem;
     -webkit-touch-callout: none; /* iOS Safari */
     -webkit-user-select: none; /* Safari */
     -khtml-user-select: none; /* Konqueror HTML */
@@ -116,10 +117,22 @@
     user-select: none; /* Non-prefixed version, currently supported by Chrome, Edge, Opera and Firefox */
 }
 
-.pop-up-box-button:hover {
-    padding: 0.2rem 0.3rem;
+.pop-up-box-button:hover, .pop-up-box-button-remove:hover, .pop-up-box-button-add:hover {
+    width: 1.4rem;
+    height: 1.4rem;
     margin: 0;
 }
+
+.pop-up-box-button-remove {
+    background-color: rgb(250, 193, 193); 
+    border: 1px solid rgb(88, 0, 0);
+}
+
+.pop-up-box-button-add {
+    background-color: rgb(193, 250, 205); 
+    border: 1px solid rgb(0, 88, 19);
+}
+
 
 .pop-up-box-confirm {
     margin-top: 0.7rem;

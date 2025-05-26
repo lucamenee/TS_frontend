@@ -1,4 +1,5 @@
 export interface Seat {
+    class: string;
     seatNumber: string,
     passenger: string,
     seatPrice: number,
