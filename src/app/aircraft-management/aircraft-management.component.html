@@ -1,67 +1,72 @@
 <h2>Gestione della flotta</h2>
 
-<div class="aircrafts">
 
-    <div class="add-aircraft"> 
-        <h4>Aggiungi un nuovo aereo</h4>
+
+<div class="pop-up-box-overlay" *ngIf="showAddAircraft">
+    <div class="pop-up-box"> 
+        <button class="close-round-button" (click)="showAddAircraft=false">❌</button>
+        <h4 class=pop-up-box-title>Aggiungi un nuovo aereo</h4>
         <table>
             <tr>
                 <td><label for="producer">Produttore</label></td>
-                <td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
-                <td><input id="producer" type="text" #producer> </td>
-            </tr>
-
-            <tr>
-                <td><label for="model">Modello</label> </td>
-                <td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
-                <td><input id="model" type="text" #model> </td>
-            </tr>
-
-            <!-- try to insert here seat creation's logic-->
-            <tr>
-                <td>Economy</td>
-                <td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
-                <td> <input type="number" placeholder="numero prima fila" min="0" #numberStartE> </td>
-                <td> <input type="number" placeholder="numero ultima fila" min="0" #numberEndE> </td>
-                <td> <input type="number" placeholder="colonne" max="20" min="0" #colsE> </td>
-                <td> <input type="number" placeholder="prezzo defualt" max="1000000" min="0" #priceE> </td>
-            </tr>
-
-            <tr>
-                <td>Business</td>
-                <td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
-                <td> <input type="number" placeholder="numero prima fila" min="0" #numberStartB> </td>
-                <td> <input type="number" placeholder="numero ultima fila" min="0" #numberEndB> </td>
-                <td> <input type="number" placeholder="colonne" max="20" min="0" #colsB> </td>
-                <td> <input type="number" placeholder="prezzo defualt" max="1000000" min="0" #priceB> </td>
-            </tr>
-
-            <tr>
-                <td>First</td>
-                <td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
-                <td> <input type="number" placeholder="numero prima fila" min="0" #numberStartF> </td>
-                <td> <input type="number" placeholder="numero ultima fila" min="0" #numberEndF> </td>
-                <td> <input type="number" placeholder="colonne" max="20" min="0" #colsF> </td>
-                <td> <input type="number" placeholder="prezzo defualt" max="1000000" min="0" #priceF> </td>
-            </tr>
-            
-            
-
-            <tr>
-                <button (click)="createFlight(producer.value, model.value, +numberStartE.value, +numberEndE.value, +colsE.value, +priceE.value,
-                    +numberStartB.value, +numberEndB.value, +colsB.value, +priceB.value,
-                    +numberStartF.value, +numberEndF.value, +colsF.value, +priceF.value
-                )">
-                    Crea aereo
-                </button>
-            </tr>
-            
-
-
-        </table>        
+                    <td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                    <td><input id="producer" type="text" #producer> </td>
+                </tr>
+    
+                <tr>
+                    <td><label for="model">Modello</label> </td>
+                    <td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                    <td><input id="model" type="text" #model> </td>
+                </tr>
+    
+                <!-- try to insert here seat creation's logic-->
+                <tr>
+                    <td>Economy</td>
+                    <td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                    <td> <input type="number" placeholder="numero prima fila" min="0" #numberStartE class="pop-up-box-input-large"> </td>
+                    <td> <input type="number" placeholder="numero ultima fila" min="0" #numberEndE class="pop-up-box-input-large"> </td>
+                    <td> <input type="number" placeholder="colonne" max="20" min="0" #colsE class="pop-up-box-input-small"> </td>
+                    <td> <input type="number" placeholder="prezzo defualt" max="1000000" min="0" #priceE class="pop-up-box-input-medium"> </td>
+                </tr>
+    
+                <tr>
+                    <td>Business</td>
+                    <td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                    <td> <input class="pop-up-box-input-large" type="number" placeholder="numero prima fila" min="0" #numberStartB> </td>
+                    <td> <input class="pop-up-box-input-large" type="number" placeholder="numero ultima fila" min="0" #numberEndB> </td>
+                    <td> <input class="pop-up-box-input-small" type="number" placeholder="colonne" max="20" min="0" #colsB> </td>
+                    <td> <input class="pop-up-box-input-medium" type="number" placeholder="prezzo defualt" max="1000000" min="0" #priceB> </td>
+                </tr>
+    
+                <tr>
+                    <td>First</td>
+                    <td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                    <td> <input class="pop-up-box-input-large" type="number" placeholder="numero prima fila" min="0" #numberStartF> </td>
+                    <td> <input class="pop-up-box-input-large" type="number" placeholder="numero ultima fila" min="0" #numberEndF> </td>
+                    <td> <input class="pop-up-box-input-small" type="number" placeholder="colonne" max="20" min="0" #colsF> </td>
+                    <td> <input class="pop-up-box-input-medium" type="number" placeholder="prezzo defualt" max="1000000" min="0" #priceF> </td>
+                </tr>
+                
+                
+    
+                <tr>
+                    <button (click)="createFlight(producer.value, model.value, +numberStartE.value, +numberEndE.value, +colsE.value, +priceE.value,
+                        +numberStartB.value, +numberEndB.value, +colsB.value, +priceB.value,
+                        +numberStartF.value, +numberEndF.value, +colsF.value, +priceF.value
+                    )" class="pop-up-box-confirm">
+                        Crea aereo
+                    </button>
+                </tr>
+                
+    
+    
+            </table>        
     </div>
 
-
+</div>
+ 
+<button (click)="showAddAircraft=true" class="open-add-button">Aggiungi nuovo aereo</button>
+<div class="aircrafts">
     <div *ngFor="let aircraft of aircrafts | async" class="aircraft">
         <h3 (click)="aircraft.show = !aircraft.show">
             <span *ngIf="!aircraft.show"> ⯈ </span>            

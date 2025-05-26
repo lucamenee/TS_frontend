@@ -114,14 +114,7 @@ h2 {
     background: #0056b3;
 }
 
-.add-flight-button {
-    padding: 0.5rem;
-    background-color: lightsteelblue;
-    border: 1px solid lightgray;
-    border-radius: 8px;
-    cursor: pointer;
-    float: right;
-}
+
 
 
 .seats-column-input {

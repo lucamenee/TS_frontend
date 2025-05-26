@@ -80,9 +80,17 @@
     margin:0.2rem;
 }
 
-.pop-up-box input[type=number] {
+.pop-up-box-input-small{
     text-align: right;
     width: 5rem;
+}
+
+.pop-up-box-input-large {
+    width: 12.75rem;
+}
+
+.pop-up-box-input-medium {
+    width: 8rem;
 }
 
 .pop-up-box-button {
@@ -172,4 +180,16 @@
     margin-top: 1rem;
     width: 27%;
     height:fit-content;
+}
+
+
+
+
+.open-add-button {
+    padding: 0.5rem;
+    background-color: lightsteelblue;
+    border: 1px solid lightgray;
+    border-radius: 8px;
+    cursor: pointer;
+    float: right;
 }

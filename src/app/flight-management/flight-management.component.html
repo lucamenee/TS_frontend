@@ -64,7 +64,7 @@
                         <td>
                             <input type="text" [(ngModel)]="extras[i].name" placeholder="descrizione">
                             &nbsp;
-                            <input type="number" [(ngModel)]="extras[i].price" placeholder="prezzo" min="0" max="1000">&nbsp;€
+                            <input type="number" class="pop-up-box-input-small" [(ngModel)]="extras[i].price" placeholder="prezzo" min="0" max="1000">&nbsp;€
                             &nbsp;
                             <span *ngIf="i==extras.length-1">
                                 <button (click)="addExtra()" class="pop-up-box-button" style="background-color: rgb(193, 250, 205); border: 1px solid rgb(0, 88, 19);">✚</button>
@@ -129,11 +129,11 @@
                         <td>
                         <td><p>
                             <label for="economyPriceUpdater">Economy</label>
-                            <input id="economyPriceUpdater" type="number" placeholder="€" #economyPriceUpdater min=0> &nbsp;&nbsp;
+                            <input class="pop-up-box-input-small" id="economyPriceUpdater" type="number" placeholder="€" #economyPriceUpdater min=0> &nbsp;&nbsp;
                             <label for="businessPriceUpdater">Business</label>
-                            <input id="businessPriceUpdater" type="number" placeholder="€" #businessPriceUpdater min=0>&nbsp;&nbsp;
+                            <input class="pop-up-box-input-small" id="businessPriceUpdater" type="number" placeholder="€" #businessPriceUpdater min=0>&nbsp;&nbsp;
                             <label for="firstClassPriceUpdater">Prima classe</label>
-                            <input id="firstClassPriceUpdater" type="number" placeholder="€" #firstClassPriceUpdater min=0>
+                            <input class="pop-up-box-input-small" id="firstClassPriceUpdater" type="number" placeholder="€" #firstClassPriceUpdater min=0>
                         </p></td>
                     </tr>
                     <!-- logica degli extraa disposizione -->
@@ -206,7 +206,7 @@
         
     </div>
 
-    <button *ngIf="!showAddFlight" (click)="showAddFlight=true" class="add-flight-button">Aggiungi nuovo volo</button>
+    <button *ngIf="!showAddFlight" (click)="showAddFlight=true" class="open-add-button">Aggiungi nuovo volo</button>
     <br><br>
     
     <div class="search-routes" >

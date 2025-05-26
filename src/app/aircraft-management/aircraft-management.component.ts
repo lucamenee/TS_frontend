@@ -12,11 +12,12 @@ import { Seat } from '../my_types/Seat';
   selector: 'app-aircraft-management',
   imports: [CommonModule, FormsModule],
   templateUrl: './aircraft-management.component.html',
-  styleUrl: './aircraft-management.component.css'
+  styleUrls: ['./aircraft-management.component.css', './../../styles.css']
 })
 export class AircraftManagementComponent {
 
   aircrafts!: Observable<Aircraft[]>;
+  showAddAircraft = false;
 
   constructor(private http: HttpClient, private us: UserHttpService) {    
     this.updateAircrafts();
