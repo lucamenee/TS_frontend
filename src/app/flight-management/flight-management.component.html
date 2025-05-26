@@ -234,7 +234,7 @@
         </div>
 
         <button (click)="this.filteredRoutes = filterRoutes(departure.value, destination.value, fromDate.value)">Cerca</button>    
-        <button (click)="updatedMyRoutes(); departure.value=''; destination.value='';">Reset</button>
+        <button (click)="updateMyRoutes(); departure.value=''; destination.value='';">Reset</button>
 
     </div>
 
@@ -261,7 +261,7 @@
                     <table>
                     <tr><td>Decollo</td> <td>&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>{{ flight.departureDate | date: 'full':'+0100':'it-IT' }}</td></tr>
                     <tr><td>Atterraggio </td> <td>&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>{{ flight.destinationDate | date: 'full':'+0100':'it-IT' }}</td></tr>
-                    <tr><td>Aerero </td> <td>&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>{{ flight.aircraft.modelName }}</td></tr>
+                    <tr><td>Aereo </td> <td>&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>{{ flight.aircraft.modelName }}</td></tr>
                     </table>
                     
                     <button 
@@ -269,6 +269,13 @@
                         *ngIf="flight.departureDate && daysDateDiffFromNow(flight.departureDate) >= 2"
                         (click)="showEditFlight = true; flightToEdit=flight; flightToEdit.departure = route.departure; flightToEdit.destination = route.destination">
                         ✏️
+                    </button>
+
+                    <button 
+                        class="edit" 
+                        *ngIf="flight.departureDate && daysDateDiffFromNow(flight.departureDate) >= 20"
+                        (click)="deleteFlight(flight._id)">
+                        🗑️
                     </button>
                     
                 </div>

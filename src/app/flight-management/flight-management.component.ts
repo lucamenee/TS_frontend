@@ -9,6 +9,7 @@ import { Router, RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { Aircraft } from '../my_types/Aircraft';
+import { error } from 'node:console';
 
 
 interface Route {
@@ -41,13 +42,13 @@ export class FlightManagementComponent {
 
   constructor(private http: HttpClient, private us: UserHttpService, public router: Router) {
     registerLocaleData(localeIt, 'it-It');
-    this.updatedMyRoutes();
+    this.updateMyRoutes();
     this.airports = this.http.get<Airport[]>(this.us.url + '/airports');
     this.fromDate= new Date();
     this.myAircrafts = this.http.get<Aircraft[]>(this.us.url + '/aircrafts ', this.us.createHeaders());
   }
 
-  updatedMyRoutes() {
+  updateMyRoutes() {
     this.http.get<Route[]>(this.us.url + '/myRoutes', this.us.createHeaders()).subscribe({
       next: (routes) => {
         this.myRoutes = this.filteredRoutes = routes;
@@ -135,7 +136,7 @@ export class FlightManagementComponent {
       next: (d) => {
         alert('Volo create');
         this.showAddFlight=false;
-        this.updatedMyRoutes();
+        this.updateMyRoutes();
       },
       error: (error) => {
         console.log(error);
@@ -181,14 +182,37 @@ export class FlightManagementComponent {
       next: (d) => {
         alert('Volo aggiornato con successo');
         this.showEditFlight = false;
-        this.updatedMyRoutes();
+        this.updateMyRoutes();
       },
       error: (error) => {
         alert("Errore nell'aggiornamento del volo " + error.error.errormessage);
         console.log(error);
       }
     })
+  }
 
+  deleteFlight(flightId: string) {
+    if (confirm('Conferma eliminazione volo'))
+      this.http.delete(this.us.url + '/deleteFlight', {
+        headers:new HttpHeaders({
+          'cache-control': 'no-cache',
+          'Content-Type':  'application/json',
+          Authorization: 'Bearer ' + this.us.get_token()
+        }),
+        body: {
+          flightId: flightId
+        }
+      }).subscribe({
+        next: (d) => {
+          console.log('flight deleted');
+          alert('Volo eliminato con successo');
+          this.updateMyRoutes();
+        },
+        error: (error) => {
+          console.log(error);
+          alert(error.error.errormessage);
+        }
+      })
   }
 
 
