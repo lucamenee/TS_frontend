@@ -4,10 +4,10 @@
     <div class="profile-header">
         <div class="user-info">
             <p>{{ us.get_name() }} 
-                <b *ngIf="us.is_passenger()">{{ us.get_surname() }}</b>
+                <span *ngIf="us.is_passenger()">{{ us.get_surname() }}</span>
             </p>
             <p>{{ us.get_mail() }}</p> 
-            <p>{{ us.get_role() }}</p>
+            <p *ngIf="!us.is_passenger()">{{ us.get_role() }}</p>
         </div>
     
         <div [ngClass]="showPasswordUpdater ? 'change-password-outer' : ''">
@@ -76,8 +76,8 @@
 </div>
 
 
-<div class="pop-up-box-overlay" *ngIf="showEditSeat">
-    <div class="pop-up-box">
+<div class="pop-up-box-overlay" *ngIf="showEditSeat" (click)="showEditSeat=false;">
+    <div class="pop-up-box" (click)="$event.stopPropagation()">
         <h4 class="pop-up-box-title">Modifica dati biglietto</h4>
         <button class="close-round-button" (click)="showEditSeat=false;">❌</button>
         <table>

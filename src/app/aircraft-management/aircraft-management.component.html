@@ -2,8 +2,8 @@
 
 
 
-<div class="pop-up-box-overlay" *ngIf="showAddAircraft">
-    <div class="pop-up-box"> 
+<div class="pop-up-box-overlay" *ngIf="showAddAircraft" (click)="showAddAircraft=false">
+    <div class="pop-up-box" (click)="$event.stopPropagation()"> 
         <button class="close-round-button" (click)="showAddAircraft=false">❌</button>
         <h4 class=pop-up-box-title>Aggiungi un nuovo aereo</h4>
         <table>

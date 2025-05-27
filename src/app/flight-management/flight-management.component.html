@@ -1,9 +1,9 @@
 <h2 class="page-title">Gestione voli</h2>
 
 <div>
-    <div *ngIf="showAddFlight" class="pop-up-box-overlay">
+    <div *ngIf="showAddFlight" class="pop-up-box-overlay" (click)="showAddFlight = false">
 
-        <div class="pop-up-box">
+        <div class="pop-up-box" (click)="$event.stopPropagation()">
             
             <div class="add-route-form">
                 <button class="close-round-button" (click)="showAddFlight = false">❌</button>
