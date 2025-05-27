@@ -1,1 +1,57 @@
 <h2 class="page-title">Statistiche</h2>
+
+<div class="stats-container">
+    <div class="stat" *ngIf="revenues">
+        <h3>Incassi</h3>
+        <p>Totale incassi: {{revenues.totalRevenue }} €</p>
+        <table border="1">
+            <tr><th>Partenza</th><th>Destinazione</th><th>Data</th><th>Incasso</th></tr>
+            <tr *ngFor="let flight of revenues.flights">
+                <td>{{ flight.departure.airportName }}</td>
+                <td>{{ flight.destination.airportName }}</td>
+                <td>{{ flight.date | date:'dd/MM/yyyy' }}</td>
+                <td class="number-td">{{ flight.revenue }} €</td>
+            </tr>
+        </table>
+    </div>
+
+
+    <div class="stat" *ngIf="passengersStats">
+        <h3>Passeggeri per volo</h3>
+        <table border="1">
+            <tr><th>Partenza</th><th>Destinazione</th><th>Data</th><th>Passeggeri</th><th>Economy</th><th>Business</th><th>First</th></tr>
+            <tr *ngFor="let flight of passengersStats">
+                <td>{{ flight.departure.airportName }}</td>
+                <td>{{ flight.destination.airportName }}</td>
+                <td>{{ flight.date | date:'dd/MM/yyyy' }}</td>
+                <td class="number-td">{{ flight.passengers }}</td>
+                <td class="number-td">{{ flight.details.economy }}</td>
+                <td class="number-td">{{ flight.details.business }}</td>
+                <td class="number-td">{{ flight.details.first }}</td>
+            </tr>
+        </table>
+    </div>
+
+
+    <div class="stat" *ngIf="topRoutes">
+        <h3>Rotte più popolari</h3>
+        <table border="1">
+            <tr><th>Partenza</th><th>Destinazione</th><th>Totale passeggeri</th><th>Voli</th></tr>
+            <tr *ngFor="let flight of topRoutes">
+                <td>{{ flight.departure.airportName }}</td>
+                <td>{{ flight.destination.airportName }}</td>
+                <td class="number-td">{{ flight.totalPassengers }}</td>
+                <td class="number-td">
+                    <span 
+                        style="text-decoration: underline;" 
+                        [matTooltip]="getFlightsTooltip(flight.flights)" 
+                        matTooltipPosition="below" 
+                        matTooltipClass="mat-tooltip">
+                        {{ flight.flights.length }}
+                    </span>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+</div>
