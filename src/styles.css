@@ -6,6 +6,12 @@
     box-sizing: border-box; /* Ensure consistent box model */
 }
 
+.page-title {
+     color: #006ee4;
+    font-size: 2rem;
+    text-align: center;
+}
+
 .mat-tooltip {
     color: white;
     background-color: rgba(0, 0, 0, 0.8);

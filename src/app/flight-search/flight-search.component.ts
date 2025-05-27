@@ -13,7 +13,7 @@ import { Flight } from '../my_types/Flight';
   selector: 'flight-search',
   imports: [RouterOutlet, CommonModule, FormsModule],
   templateUrl: './flight-search.component.html',
-  styleUrl: './flight-search.component.css',
+  styleUrls: ['./flight-search.component.css', './../../styles.css'],
   standalone: true
 })
 export class FlightSearch {

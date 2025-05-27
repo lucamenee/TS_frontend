@@ -12,7 +12,7 @@ import { ChangeDetectorRef } from '@angular/core';
   selector: 'app-admin',
   imports: [CommonModule, FormsModule],
   templateUrl: './admin.component.html',
-  styleUrl: './admin.component.css'
+  styleUrls: ['./admin.component.css', './../../styles.css']
 })
 export class AdminComponent {
 

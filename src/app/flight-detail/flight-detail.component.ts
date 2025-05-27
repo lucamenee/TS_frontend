@@ -15,7 +15,7 @@ import { error } from 'console';
   standalone: true,
   imports: [CommonModule],
   templateUrl: './flight-detail.component.html',
-  styleUrls: ['./flight-detail.component.css']
+  styleUrls: ['./flight-detail.component.css', './../../styles.css']
 })
 export class FlightDetail implements OnInit {
   flightId: string = '';

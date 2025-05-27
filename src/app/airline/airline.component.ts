@@ -5,7 +5,7 @@ import { Router, RouterModule } from '@angular/router';
   selector: 'app-airline',
   imports: [],
   templateUrl: './airline.component.html',
-  styleUrl: './airline.component.css'
+  styleUrls: ['./airline.component.css', './../../styles.css']
 })
 export class AirlineComponent {
   constructor(public router: Router) {}
