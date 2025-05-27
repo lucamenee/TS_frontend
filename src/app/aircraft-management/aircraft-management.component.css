@@ -25,7 +25,7 @@ h2 {
 }
 
 .aircraft h3 {
-    padding-bottom: 1rem;
+    padding-bottom: 0.25rem;
     cursor: pointer;
     -webkit-touch-callout: none;
     -webkit-user-select: none;
@@ -112,4 +112,19 @@ h2 {
     border: 1px solid #006ee4;
     border-radius: 4px;
 
+}
+
+.aircraft-title {
+    display: flex; 
+    align-items: center; 
+    gap: 1rem;
+}
+
+.aircraft-title h3 {
+    margin-left: 0; 
+    cursor: pointer;
+}
+
+.aircraft-title p {
+    margin: 0;
 }

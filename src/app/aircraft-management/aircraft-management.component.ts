@@ -176,6 +176,10 @@ export class AircraftManagementComponent {
   return seats;
   }
 
+  totSeats(aircraft: Aircraft): number {
+    return aircraft.economySeats.length + aircraft.businessSeats.length + aircraft.firstClassSeats.length;
+  }
+
 
 
 }

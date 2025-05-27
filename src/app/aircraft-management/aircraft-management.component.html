@@ -68,11 +68,14 @@
 <button (click)="showAddAircraft=true" class="open-add-button">Aggiungi nuovo aereo</button>
 <div class="aircrafts">
     <div *ngFor="let aircraft of aircrafts | async" class="aircraft">
-        <h3 (click)="aircraft.show = !aircraft.show">
-            <span *ngIf="!aircraft.show"> ⯈ </span>            
-            <span *ngIf="aircraft.show"> ⯆ </span>
-            {{aircraft.producer}} {{aircraft.modelName}}
-        </h3>
+        <div class="aircraft-title">
+            <h3 (click)="aircraft.show = !aircraft.show">
+                <span *ngIf="!aircraft.show"> ⯈ </span>            
+                <span *ngIf="aircraft.show"> ⯆ </span>
+                {{aircraft.producer}} {{aircraft.modelName}}
+            </h3>
+            <p>{{ totSeats(aircraft) }} posti totali</p>
+        </div>
         <div class="seats-container" *ngIf="aircraft.show">
 
             <div class="class">

@@ -285,7 +285,7 @@
                     <table>
                     <tr><td>Decollo</td> <td>&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>{{ flight.departureDate | date: 'full':'+0100':'it-IT' }}</td></tr>
                     <tr><td>Atterraggio </td> <td>&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>{{ flight.destinationDate | date: 'full':'+0100':'it-IT' }}</td></tr>
-                    <tr><td>Aereo </td> <td>&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>{{ flight.aircraft.modelName }}</td></tr>
+                    <tr><td>Aereo </td> <td>&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>{{ flight.aircraft.producer }} {{ flight.aircraft.modelName }}</td></tr>
                     </table>
                     
                     <button 
