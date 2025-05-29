@@ -1,4 +1,4 @@
-import { afterNextRender, Component, OnInit, TemplateRef } from '@angular/core';
+import { afterNextRender, Component, OnDestroy, OnInit, TemplateRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule, registerLocaleData } from '@angular/common';
 import { HttpClient, HttpHandler, HttpHeaders, HttpParams } from '@angular/common/http';
@@ -9,6 +9,7 @@ import { UserHttpService } from '../user-http.service';
 import { Flight } from '../my_types/Flight'
 import { User } from '../my_types/User';
 import { error } from 'console';
+import { SocketioService } from '../socketio.service';
 
 @Component({
   selector: 'app-flight-detail',
@@ -23,25 +24,44 @@ export class FlightDetail implements OnInit {
   myId !: string;
 
   constructor(private route: ActivatedRoute, private us: UserHttpService, private http: HttpClient, 
-    public router: Router) {
+    public router: Router, private sio: SocketioService) {
     registerLocaleData(localeIt, 'it-It');
-    this.myId = this.us.get_id();
+    afterNextRender(() => {
+      this.myId = this.us.get_id();
+    })
   }
 
   ngOnInit(): void {
     this.route.params.subscribe((params: any) => {
       this.flightId = params['id'];
-      this.http.get(this.us.url + '/flight?id=' + this.flightId).subscribe({
-        next: (data: any) => {
-          this.flight = data;
-        },
-        error: (err) => {
-          console.log(err);
-          this.router.navigate(['']);
-        }
+      this.get_flight_details();
+      this.sio.connect(this.flightId).subscribe(data => {
+        console.log(data);
+        this.flight = data;
       });
+      // this.sio.onSeatAvailability().subscribe(data => {
+      //   this.flight = data;
+      // });
       
       
+    });
+  }
+  
+  // ngOnDestroy() {
+  //   this.sio.unsubscribeFromFlight(this.flightId);
+  // }
+
+  
+
+  get_flight_details() {
+    this.http.get(this.us.url + '/flight?id=' + this.flightId).subscribe({
+      next: (data: any) => {
+        this.flight = data;
+      },
+      error: (err) => {
+        console.log(err);
+        this.router.navigate(['']);
+      }
     });
   }
 
@@ -67,7 +87,6 @@ export class FlightDetail implements OnInit {
       }, this.us.createHeaders()).subscribe({
         next: () => {
           alert('Prenotazione effettuata con successo');
-          window.location.reload();
         }, 
         error: (error) => {
           console.log(error)
