@@ -14,7 +14,7 @@ export class SocketioService {
     return new Observable((observer) => {
       let socket = io(this.us.url);
 
-      // Register a callback when the "broadcast" event is received
+      // Register a callback when the "flightId" event is received
       socket.on(flightId, (m:any) => {
         console.log('Socket.io message received: ' + JSON.stringify(m) );
         observer.next( m ); // Here we notify the subscriber that a new value is available
